@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         gamesense theme v2 — forum script
 // @namespace    https://github.com/Jozkah/gamesense-theme-v2
-// @version      0.1.0
+// @version      0.2.0
 // @description  Companion script for gamesense theme v2: wordmark split, header offset sync, privacy masking.
 // @author       Jozkah
 // @match        https://gamesense.pub/forums/*
@@ -77,8 +77,62 @@
         });
     }
 
+    /* ------------------------------------------------------------------
+       4. Header icons — build ul#gs-header-icons on the right side of the
+          navbar: cloud (premium/loader page), bell (moved from the menu,
+          keeps its bound listeners), user (own profile + tooltip).
+          Uses the page's Font Awesome (already loaded for the bell).
+       ------------------------------------------------------------------ */
+    function buildHeaderIcons() {
+        var box = document.querySelector('#brdheader .box');
+        if (!box || document.getElementById('gs-header-icons')) return;
+
+        var uid = (typeof window.gs_user_id !== 'undefined') ? window.gs_user_id : null;
+        var uname = (typeof window.gs_username !== 'undefined') ? window.gs_username : null;
+
+        var ul = document.createElement('ul');
+        ul.id = 'gs-header-icons';
+
+        // Cloud -> premium / loader page.
+        var liCloud = document.createElement('li');
+        var aCloud = document.createElement('a');
+        aCloud.href = uid
+            ? 'https://gamesense.pub/forums/profile.php?section=premium&id=' + uid
+            : 'https://gamesense.pub/forums/payment.php';
+        aCloud.innerHTML = '<i class="fa fa-lg fa-cloud"></i>';
+        liCloud.appendChild(aCloud);
+        ul.appendChild(liCloud);
+
+        // Bell -> move the existing li (preserves the notifications JS).
+        var bell = document.getElementById('navnotifications');
+        if (bell) ul.appendChild(bell);
+
+        // User -> own profile, tooltip "Logged in as <name>".
+        var liUser = document.createElement('li');
+        if (uname) liUser.setAttribute('data-tooltip', 'Logged in as ' + uname);
+        var aUser = document.createElement('a');
+        aUser.href = uid ? 'https://gamesense.pub/forums/profile.php?id=' + uid : '#';
+        aUser.innerHTML = '<i class="fa fa-lg fa-user"></i>';
+        liUser.appendChild(aUser);
+        ul.appendChild(liUser);
+
+        box.appendChild(ul);
+    }
+
+    /* ------------------------------------------------------------------
+       5. Rename the chat panel title "Chat" -> "Shoutbox".
+       ------------------------------------------------------------------ */
+    function renameShoutbox() {
+        var span = document.querySelector('#brdmain .blockform h2 span');
+        if (span && span.textContent.trim() === 'Chat') {
+            span.textContent = 'Shoutbox';
+        }
+    }
+
     function run() {
         splitWordmark();
+        buildHeaderIcons();
+        renameShoutbox();
         syncHeaderOffset();
         maskSensitive();
     }

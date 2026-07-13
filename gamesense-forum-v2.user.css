@@ -1,7 +1,7 @@
 /* ==UserStyle==
 @name           gamesense theme v2
 @namespace      github.com/Jozkah/gamesense-theme-v2
-@version        0.1.2
+@version        0.2.0
 @description    gamesense forum theme v2 — pixel-matched dark restyle of the gamesense.pub forum
 @author         Jozkah
 @homepageURL    https://github.com/Jozkah/gamesense-theme-v2
@@ -327,7 +327,7 @@
     }
 
     .pun {
-        max-width: 1280px;
+        max-width: 1070px;
         min-width: 320px;
         margin: 0 auto;
         padding: 12px 20px;
@@ -400,7 +400,7 @@
     #brdheader .box {
         border-top-width: unset;
         border-radius: unset;
-        max-width: 1280px;
+        max-width: 1070px;
         min-width: 300px;
         margin: auto;
         background-color: transparent;
@@ -2037,22 +2037,15 @@
         text-decoration: none;
     }
 
-    /* "Premium" nav item -> pink. gamesense adds this as a custom menu item;
-       match it by its likely href/id. Broadened so at least one hits the live
-       DOM; tighten to the exact selector once confirmed. */
-    #brdmenu li[id*="premium"] a,
-    #brdmenu li a[href*="premium"],
-    #brdmenu li a[href*="subscription"],
-    #brdmenu li a[href*="/account"] {
-        color: var(--pink) !important;
+    /* "Premium" nav item — real DOM is <li id="navpremium"><a class="usergroup-5">,
+       and usergroup-5 is the premium RED. */
+    #brdmenu #navpremium a {
+        color: var(--red) !important;
         font-weight: 700;
     }
 
-    #brdmenu li[id*="premium"] a:hover,
-    #brdmenu li a[href*="premium"]:hover,
-    #brdmenu li a[href*="subscription"]:hover,
-    #brdmenu li a[href*="/account"]:hover {
-        color: #f47cc0 !important;
+    #brdmenu #navpremium a:hover {
+        color: #ff4545 !important;
     }
 
     /* Right-side header icons (cloud / notifications / user).
@@ -2202,5 +2195,197 @@
        through the whole page, not just the rows. */
     .pun {
         background-color: rgba(11, 11, 11, 0.72);
+    }
+
+    /* ==================================================================
+       v0.2.0 — matched against the real DOM (GameSense.html dump)
+       ================================================================== */
+
+    /* ---- Category titles as "legend" headers: ─ Title ───────────── ----
+       The h2 becomes a flex row: short line, title, long line. The box
+       below loses its top border (the h2 line IS the top edge). */
+    #brdmain .blocktable h2,
+    #brdmain .blockform h2,
+    #brdmain .block h2 {
+        display: flex;
+        align-items: center;
+        background: transparent !important;
+        border: none !important;
+        padding: 0 0 5px 0;
+        font-size: 11px;
+        font-weight: 700;
+        color: var(--text-strong);
+    }
+
+    #brdmain .blocktable h2::before,
+    #brdmain .blockform h2::before,
+    #brdmain .block h2::before {
+        content: "";
+        width: 12px;
+        height: 1px;
+        background: var(--border);
+        margin-right: 8px;
+        flex: 0 0 auto;
+    }
+
+    #brdmain .blocktable h2::after,
+    #brdmain .blockform h2::after,
+    #brdmain .block h2::after {
+        content: "";
+        flex: 1 1 auto;
+        height: 1px;
+        background: var(--border);
+        margin-left: 8px;
+    }
+
+    #brdmain .blocktable .box,
+    #brdmain .blockform .box,
+    #brdmain .block .box {
+        border-top: none;
+    }
+
+    /* Posts pages keep their solid header bars — restore them. */
+    #brdmain .blockpost h2 {
+        display: block;
+        background-color: var(--panel-title) !important;
+        border: 1px solid var(--border) !important;
+        border-bottom: none !important;
+        padding: 10px 8px;
+    }
+
+    #brdmain .blockpost h2::before,
+    #brdmain .blockpost h2::after {
+        content: none;
+    }
+
+    /* ---- Header icons (cloud / bell / user) pinned to the far right ----
+       The userscript moves #navnotifications into ul#gs-header-icons and
+       adds the cloud + user items. */
+    #gs-header-icons {
+        position: absolute;
+        right: 20px;
+        top: 0;
+        height: 60px;
+        display: flex;
+        align-items: center;
+        gap: 18px;
+        margin: 0;
+        padding: 0;
+        list-style: none;
+        z-index: 5;
+    }
+
+    #gs-header-icons li {
+        display: block;
+        margin: 0;
+        position: relative;
+    }
+
+    #gs-header-icons a,
+    #gs-header-icons .fake-link {
+        color: #9a9a9a;
+        cursor: pointer;
+        transition: color .15s ease;
+    }
+
+    #gs-header-icons a:hover,
+    #gs-header-icons .fake-link:hover {
+        color: #fff;
+    }
+
+    /* Styled tooltip ("Logged in as <name>") for the user icon. */
+    #gs-header-icons [data-tooltip]:hover::after {
+        content: attr(data-tooltip);
+        position: absolute;
+        top: 42px;
+        right: 0;
+        white-space: nowrap;
+        background: #0a0a0a;
+        color: var(--text);
+        border: 1px solid var(--border);
+        padding: 5px 9px;
+        font-size: 11px;
+        z-index: 1002;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.6);
+    }
+
+    /* Notifications dropdown (bell) — dark panel under the icons. */
+    #notifications-container {
+        position: absolute;
+        right: 20px;
+        top: 62px;
+        width: 320px;
+        background: #101010;
+        border: 1px solid var(--border);
+        box-shadow: 0 4px 14px rgba(0, 0, 0, 0.7);
+        z-index: 1001;
+    }
+
+    #notifications-container li {
+        border-bottom: 1px solid var(--border-soft);
+        padding: 6px 10px;
+    }
+
+    #notifications-container .dateTime {
+        color: var(--text-dim);
+        font-size: 10px;
+    }
+
+    #notifications-footer p {
+        text-align: center;
+        padding: 6px 0;
+    }
+
+    /* ---- Sub-header: only the subscription line + Topics filters ----
+       (two-id selector needed to beat the display:inline rule above) */
+    #brdheader #brdwelcome .conl li:nth-child(1),
+    #brdheader #brdwelcome .conl li:nth-child(3) {
+        display: none;
+    }
+
+    /* ---- Shoutbox ---- */
+    /* ChatBot lines get the green edge bar. */
+    #shout p:has(> a.chatBot) {
+        border-left: 3px solid #26a269;
+        padding-left: 5px;
+    }
+
+    /* Input bar: light field with dark text (target look), volume icon
+       sits inside it on the right. */
+    #shout input {
+        background: #f2f2f2;
+        color: #111;
+        border: none;
+        font-size: 12px;
+        height: 26px;
+        padding: 4px 78px 4px 8px;
+    }
+
+    #shout input::placeholder {
+        color: #666;
+    }
+
+    #shoutvol {
+        position: absolute;
+        right: 30px;
+        top: 50%;
+        transform: translateY(-50%);
+        color: #444;
+        z-index: 2;
+    }
+
+    #shoutvol:hover {
+        color: #000;
+    }
+
+    #emojiselector {
+        position: absolute;
+        right: 2px;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 26px;
+        border: none;
+        background: transparent;
+        font-size: 1.1em;
     }
 }
