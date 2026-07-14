@@ -1,7 +1,7 @@
 /* ==UserStyle==
 @name           gamesense theme v2
 @namespace      github.com/Jozkah/gamesense-theme-v2
-@version        0.8.3
+@version        0.8.4
 @description    gamesense forum theme v2 — pixel-matched dark restyle of the gamesense.pub forum
 @author         Jozkah
 @homepageURL    https://github.com/Jozkah/gamesense-theme-v2
@@ -2161,10 +2161,29 @@
         margin: 0 2px 0 8px;
     }
 
-    /* Hide the little new/read status squares on the forum-index rows — the
-       target relies on the "[ New posts ]" text instead. */
-    #punindex .icon {
+    /* Hide the little new/read status squares on ALL table rows — the
+       target relies on the "[ New posts ]" text instead. Was scoped to
+       #punindex, which left them exposed on #punpmsnew (PM) and any other
+       page with .tcl rows. Post-avatar icons (.postleft .icon) untouched. */
+    .pun td.tcl .icon,
+    .pun th.tcl .icon {
         display: none;
+    }
+
+    /* PM-only checkbox column (.tce exists nowhere else): keep it narrow
+       and centred like the other meta columns. */
+    .pun .tce {
+        width: 4%;
+        text-align: center;
+        padding: 4px;
+    }
+
+    /* Native form controls render dark instead of stock white/blue —
+       fixes the PM select-all / per-row checkboxes. */
+    .pun input[type="checkbox"],
+    .pun input[type="radio"] {
+        color-scheme: dark;
+        accent-color: var(--green);
     }
 
     /* ---- Fonts: replace chunky Verdana with a crisp modern sans ---- */
