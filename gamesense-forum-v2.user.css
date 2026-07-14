@@ -1,7 +1,7 @@
 /* ==UserStyle==
 @name           gamesense theme v2
 @namespace      github.com/Jozkah/gamesense-theme-v2
-@version        0.8.4
+@version        0.8.5
 @description    gamesense forum theme v2 — pixel-matched dark restyle of the gamesense.pub forum
 @author         Jozkah
 @homepageURL    https://github.com/Jozkah/gamesense-theme-v2
@@ -2168,6 +2168,31 @@
     .pun td.tcl .icon,
     .pun th.tcl .icon {
         display: none;
+    }
+
+    /* PM rows title with <strong><a> where the index uses <h3><a>, so the
+       .tcl h3 a rules missed them entirely: they fell back to the generic
+       blue link colour at the 10px td size. Mirror the index treatment. */
+    .pun .tcl strong {
+        font-size: 11px;
+        font-weight: 700;
+    }
+
+    .pun .tcl strong a:link,
+    .pun .tcl strong a:visited {
+        color: var(--text-strong);
+    }
+
+    .pun .tcl strong a:hover,
+    .pun .tcl strong a:active {
+        color: var(--green-bright);
+    }
+
+    /* PM rows are single-line (no description), so they came out half the
+       index's height and read as cramped. Give them comparable rhythm. */
+    #punpmsnew tbody td {
+        padding-top: 9px;
+        padding-bottom: 9px;
     }
 
     /* PM-only checkbox column (.tce exists nowhere else): keep it narrow
