@@ -1,7 +1,7 @@
 /* ==UserStyle==
 @name           gamesense theme v2
 @namespace      github.com/Jozkah/gamesense-theme-v2
-@version        0.5.1
+@version        0.5.2
 @description    gamesense forum theme v2 — pixel-matched dark restyle of the gamesense.pub forum
 @author         Jozkah
 @homepageURL    https://github.com/Jozkah/gamesense-theme-v2
@@ -46,9 +46,10 @@
         --wordmark-size: 22px;     /* navbar "gamesense" size             */
         --header-offset: 116px;    /* space reserved for the fixed header */
 
-        /* Fonts — classic Verdana forum face per the target screenshots. */
-        --font-body:    Verdana, Geneva, Tahoma, "Segoe UI", sans-serif;
-        --font-display: Verdana, Geneva, Tahoma, "Segoe UI", sans-serif;
+        /* Fonts — Tahoma: the target's letterforms are tighter than
+           Verdana (flat terminals, compact bold) but same family DNA. */
+        --font-body:    Tahoma, "Segoe UI", Verdana, Geneva, sans-serif;
+        --font-display: Tahoma, "Segoe UI", Verdana, Geneva, sans-serif;
 
         /* Glow accents (green brand glow + gradient-line bloom). */
         --glow-green: 0 0 8px rgba(149, 184, 6, 0.55);
