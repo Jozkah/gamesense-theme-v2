@@ -1,7 +1,7 @@
 /* ==UserStyle==
 @name           gamesense theme v2
 @namespace      github.com/Jozkah/gamesense-theme-v2
-@version        0.8.5
+@version        0.8.6
 @description    gamesense forum theme v2 — pixel-matched dark restyle of the gamesense.pub forum
 @author         Jozkah
 @homepageURL    https://github.com/Jozkah/gamesense-theme-v2
@@ -2168,6 +2168,19 @@
     .pun td.tcl .icon,
     .pun th.tcl .icon {
         display: none;
+    }
+
+    /* Legend titles that are SIBLINGS of their block instead of its first
+       child (PM: <form><h2>Private messages</h2><div id="vf" class=
+       "blocktable">). The block's section margin-top lands between the
+       title and the box, cancelling the -8px overlap and leaving the
+       legend floating detached. Never matches the normal pages, where the
+       h2 lives inside the block. */
+    #brdmain h2 + .blocktable,
+    #brdmain h2 + .block,
+    #brdmain h2 + .blockform,
+    #brdmain h2 + .block2col {
+        margin-top: 0;
     }
 
     /* PM rows title with <strong><a> where the index uses <h3><a>, so the
