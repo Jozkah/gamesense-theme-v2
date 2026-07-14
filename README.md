@@ -1,28 +1,41 @@
 # gamesense theme v2
 
-A pixel-matched dark restyle of the **gamesense.pub** forum (FluxBB/PunBB), built to match the "exclusive" theme screenshots.
+A full dark restyle of the **gamesense.pub** forum (FluxBB/PunBB) — a port of **@zope**'s design to Stylus.
 
 Two parts, install both:
 
 | File | Install with | What it does |
 |------|--------------|--------------|
 | [`gamesense-forum-v2.user.css`](gamesense-forum-v2.user.css) | **Stylus** (UserCSS) | All styling |
-| [`forum-style-v2.user.js`](forum-style-v2.user.js) | **Tampermonkey** | Wordmark split, header-offset sync, privacy masking |
+| [`forum-style-v2.user.js`](forum-style-v2.user.js) | **Tampermonkey** | Header sync, header icons, emoji picker, payment history, privacy masking |
+
+## What's in it
+
+- Complete restyle of every page: index, topics, posts, PM, profiles, admin.
+- Header offset syncs to the real header height, so it adapts to your resolution and to however many notice bars your account shows.
+- Header icons: **premium**, **notifications** (with a dropdown) and **your profile**, tooltip coloured by usergroup.
+- Shoutbox: renamed from "Chat", 12-hour timestamps, a custom emoji picker replacing the native `<select>`, and an overlay when the connection drops.
+- Payment page keeps a local purchase history, so you see more than the few entries the site returns.
+- Sections show full game names.
+- Email and 2FA recovery codes are blurred until hovered.
+- Three logo options, switchable from Stylus settings — no editing required.
+- Every colour and key size is a CSS variable in `:root`.
 
 ## Install
-
-### Stylus (CSS)
-1. Install the [Stylus](https://add0n.com/stylus.html) browser extension.
-2. Open the raw CSS: `https://raw.githubusercontent.com/Jozkah/gamesense-theme-v2/main/gamesense-forum-v2.user.css`
-3. Stylus detects the UserCSS header and prompts to install. Confirm.
-4. `@updateURL` is set, so Stylus auto-pulls new pushes to `main`.
 
 ### Tampermonkey (JS)
 1. Install [Tampermonkey](https://www.tampermonkey.net/).
 2. Open the raw JS: `https://raw.githubusercontent.com/Jozkah/gamesense-theme-v2/main/forum-style-v2.user.js`
 3. Tampermonkey prompts to install. Confirm.
 
+### Stylus (CSS)
+1. Install the [Stylus](https://add0n.com/stylus.html) browser extension.
+2. Open the raw CSS: `https://raw.githubusercontent.com/Jozkah/gamesense-theme-v2/main/gamesense-forum-v2.user.css`
+3. Stylus detects the UserCSS header and prompts to install. Confirm.
+
 Then load `https://gamesense.pub/forums/`.
+
+Both files set `@updateURL`, so Stylus and Tampermonkey auto-pull new pushes to `main`.
 
 ## Customising
 
@@ -38,18 +51,20 @@ Stylus shows a **"Top-left logo"** dropdown in the style's settings — click th
 Every colour and key size is also a CSS variable in the `:root { … }` block at the top of the CSS — edit there and the change propagates everywhere.
 
 ### Custom GAMESENSE logo (CS2 font)
-The navbar shows the text wordmark (`game` + green `sense`) by default. To use the uploaded image logo instead:
+The navbar shows the text wordmark (`game` + green `sense`) by default. To use an image logo instead:
 1. Base64-encode the PNG and paste it into `--gs-logo` in the CSS.
 2. Uncomment the `OPTIONAL: swap the text wordmark…` block just below the wordmark rules.
 
 See [`assets/logo-note.md`](assets/logo-note.md).
 
-## Status / known follow-ups
-First pass matched from screenshots + the known FluxBB DOM (not the live authenticated site). Likely tuning points once diffed against the real forum:
-- Exact `--header-offset` height and the right-side **cloud / bell / user** icon selectors.
-- The exact **Premium** nav item selector (currently matched by likely href/id).
-- Background texture asset (reuses the genuine gamesense tile; swap `--bg-texture` if needed).
-- Top gradient hairline colour stops.
+Stratum2 (CS2's real face) is proprietary and can't be bundled. The CSS prefers it when it's installed locally and falls back to an embedded lookalike otherwise.
+
+## Status
+
+Built and tuned against the live authenticated forum. Bug reports and requests go in [Issues](https://github.com/Jozkah/gamesense-theme-v2/issues).
 
 ## Credits
-FluxBB base structure derived from the original forum theme by **abbie**; v2 restyle by **Jozkah**.
+
+Original design by **@zope** — this is his idea, ported to Stylus.
+FluxBB base structure derived from the original forum theme stylesheet by **abbie**.
+v2 port by **Jozkah**, written with Claude.
