@@ -1,7 +1,7 @@
 /* ==UserStyle==
 @name           gamesense theme v2
 @namespace      github.com/Jozkah/gamesense-theme-v2
-@version        0.9.1
+@version        0.9.2
 @description    gamesense forum theme v2 — pixel-matched dark restyle of the gamesense.pub forum
 @author         Jozkah
 @homepageURL    https://github.com/Jozkah/gamesense-theme-v2
@@ -2247,6 +2247,17 @@
 
     #notifications-footer p a {
         color: var(--blue);
+    }
+
+    /* The replies/views/mod columns carried their own opaque background
+       (--surface-alt), painting over whatever colour the row set — so the
+       count column never matched the rest of the row, on EVERY row, and
+       the sticky tint stopped dead at its edge. Let the row show through. */
+    .pun td.tc2,
+    .pun td.tc3,
+    .pun td.tcmod,
+    .pun td.tce {
+        background-color: transparent;
     }
 
     /* Pinned / sticky topics: subtle warm tint + gold left edge, reusing
