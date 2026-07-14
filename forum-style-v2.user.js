@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         gamesense theme v2 — forum script
 // @namespace    https://github.com/Jozkah/gamesense-theme-v2
-// @version      0.4.0
+// @version      0.4.1
 // @description  Companion script for gamesense theme v2: wordmark split, header offset sync, privacy masking.
 // @author       Jozkah
 // @match        https://gamesense.pub/forums/*
@@ -151,6 +151,16 @@
     }
 
     /* ------------------------------------------------------------------
+       6b. Redirect forums (e.g. "CS:GO Lua API") show "- - -" as their
+           last-post cell — clear it so the row is one clean line.
+       ------------------------------------------------------------------ */
+    function clearRedirectPlaceholders() {
+        document.querySelectorAll('#punindex td.tcr').forEach(function (td) {
+            if (td.textContent.replace(/\s+/g, '') === '---') td.textContent = '';
+        });
+    }
+
+    /* ------------------------------------------------------------------
        7. Shoutbox timestamps in 12-hour format: "23:55:43" -> "11:55:43 PM".
           The shoutbox re-renders itself over its socket, so a
           MutationObserver keeps new rows converted. Idempotent (skips
@@ -258,6 +268,7 @@
         buildHeaderIcons();
         renameShoutbox();
         renameSections();
+        clearRedirectPlaceholders();
         watchShoutbox();
         buildEmojiPicker();
         syncHeaderOffset();

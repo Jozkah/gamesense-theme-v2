@@ -1,7 +1,7 @@
 /* ==UserStyle==
 @name           gamesense theme v2
 @namespace      github.com/Jozkah/gamesense-theme-v2
-@version        0.4.0
+@version        0.4.1
 @description    gamesense forum theme v2 — pixel-matched dark restyle of the gamesense.pub forum
 @author         Jozkah
 @homepageURL    https://github.com/Jozkah/gamesense-theme-v2
@@ -2636,5 +2636,77 @@
 
     #gs-emoji-panel::-webkit-scrollbar-thumb {
         background: #3a3a3a;
+    }
+
+    /* ==================================================================
+       v0.4.1 — coloration pass from the target screenshot
+       ================================================================== */
+
+    /* Sub-header strip: slightly lighter than the page, distinct from the
+       navbar. Bold white product name, dim connective text, blue links. */
+    #brdheader #brdwelcome {
+        background: #151619;
+        border-top: 1px solid #000;
+        border-bottom: 1px solid #000;
+        color: #9a9a9a;
+    }
+
+    #brdheader #brdwelcome .conl li span,
+    #brdheader #brdwelcome .conr li span {
+        color: #9a9a9a;
+    }
+
+    #brdheader #brdwelcome .conl li span strong {
+        color: #f0f0f0;
+    }
+
+    /* Fewer divisions: the content column is just the page — no container
+       border or shadow; boxes and rows keep only whisper-quiet lines. */
+    .pun {
+        border: none;
+        box-shadow: none;
+    }
+
+    .pun .box {
+        border-color: #1e1e1e;
+    }
+
+    #brdfooter #modcontrols,
+    .pun td {
+        border-color: #212121;
+    }
+
+    #brdmain .blocktable h2::before,
+    #brdmain .blockform h2::before,
+    #brdmain .block h2::before,
+    #brdmain .blocktable h2::after,
+    #brdmain .blockform h2::after,
+    #brdmain .block h2::after {
+        background: #2a2a2a;
+    }
+
+    /* "[ New posts ]" — fully blue, brackets included. */
+    .pun .tcl h3 span.newtext,
+    .pun .tcl h3 span.newtext a {
+        color: var(--blue);
+    }
+
+    .pun .tcl h3 span.newtext a:hover {
+        color: var(--blue-hover);
+    }
+
+    /* Shoutbox rows: subtle alternation (intercalated), hover stays. */
+    #shout .rowEven {
+        background-color: rgba(255, 255, 255, 0.030);
+    }
+
+    #shout .rowOdd {
+        background-color: transparent;
+    }
+
+    /* Redirect rows ("CS:GO Lua API"): compact single line — the userscript
+       clears the "- - -" placeholder; keep the cell from adding height. */
+    .pun .iredirect .tcr {
+        color: transparent;
     }
 }
