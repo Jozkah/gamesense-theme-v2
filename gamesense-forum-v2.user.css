@@ -1,7 +1,7 @@
 /* ==UserStyle==
 @name           gamesense theme v2
 @namespace      github.com/Jozkah/gamesense-theme-v2
-@version        0.4.4
+@version        0.5.0
 @description    gamesense forum theme v2 — pixel-matched dark restyle of the gamesense.pub forum
 @author         Jozkah
 @homepageURL    https://github.com/Jozkah/gamesense-theme-v2
@@ -2917,5 +2917,100 @@
         backdrop-filter: blur(0.5px);
         -webkit-backdrop-filter: blur(0.5px);
         background: linear-gradient(to bottom, rgba(10, 10, 10, 0.45), transparent);
+    }
+
+    /* ==================================================================
+       v0.5.0 — usergroup map (complete), coloured tooltip, GS compact logo
+       ================================================================== */
+
+    /* Real tooltip element: "Logged in as <name>" — name inherits its
+       usergroup colour class. Replaces the attr() tooltip. */
+    #gs-header-icons [data-tooltip]:hover::after {
+        content: none;
+    }
+
+    .gs-tooltip {
+        display: none;
+        position: absolute;
+        top: calc(100% + 12px);
+        right: -6px;
+        white-space: nowrap;
+        background: #151515;
+        color: var(--text);
+        border: 1px solid var(--border);
+        padding: 5px 9px;
+        font-size: 11px;
+        font-weight: 400;
+        z-index: 1002;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.6);
+    }
+
+    #gs-header-icons li:hover .gs-tooltip {
+        display: block;
+    }
+
+    /* Full usergroup colour map (spec):
+       1 admin #b4e61e | 2 mod #ffcc00 | 3 chatbot #00AA00 | 4 member
+       #60A0DC | 5 premium #E61515 | 6 banned #CCCCCC | 7 lua mod #58d794
+       | 8 admin2 #b4e61e. Groups 1/2/5/6/7 already styled above — add the
+       missing ones. */
+    .pun .usergroup-3 {
+        color: #00AA00 !important;
+        font-weight: 700;
+    }
+
+    .pun a:hover.usergroup-3 {
+        color: #33cc33 !important;
+    }
+
+    .pun .usergroup-4 {
+        color: #60A0DC !important;
+    }
+
+    .pun a:hover.usergroup-4 {
+        color: #80d6ff !important;
+    }
+
+    .pun .usergroup-8 {
+        color: #b4e61e !important;
+        font-weight: 700;
+    }
+
+    .pun a:hover.usergroup-8 {
+        color: #e4ff5e !important;
+    }
+
+    /* ChatBot green corrected to the spec value. */
+    #shout .chatBot {
+        color: #00AA00;
+    }
+
+    #shout p:has(> a.chatBot)::before {
+        background: #00AA00;
+    }
+
+    /* Compact "GS" logo on narrow screens — white G, green S, same
+       CS2-style letterforms as the full wordmark. */
+    @media only screen and (max-width: 700px) {
+        #brdtitle h1 a {
+            font-size: 0;
+            letter-spacing: 0;
+        }
+
+        #brdtitle h1 a::before {
+            content: "G";
+            font-size: 22px;
+            color: var(--text-strong);
+        }
+
+        #brdtitle h1 a span {
+            font-size: 0;
+        }
+
+        #brdtitle h1 a span::before {
+            content: "S";
+            font-size: 22px;
+            color: var(--green);
+        }
     }
 }

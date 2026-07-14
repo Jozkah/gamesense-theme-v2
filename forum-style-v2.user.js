@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         gamesense theme v2 — forum script
 // @namespace    https://github.com/Jozkah/gamesense-theme-v2
-// @version      0.4.1
+// @version      0.5.0
 // @description  Companion script for gamesense theme v2: wordmark split, header offset sync, privacy masking.
 // @author       Jozkah
 // @match        https://gamesense.pub/forums/*
@@ -113,13 +113,25 @@
             if (dropdown) bell.appendChild(dropdown);
         }
 
-        // User -> own profile, tooltip "Logged in as <name>".
+        // User -> own profile, tooltip "Logged in as <name>" with the name
+        // coloured by usergroup (real element — CSS attr() tooltips can't
+        // colour part of their text).
         var liUser = document.createElement('li');
-        if (uname) liUser.setAttribute('data-tooltip', 'Logged in as ' + uname);
         var aUser = document.createElement('a');
         aUser.href = uid ? 'https://gamesense.pub/forums/profile.php?id=' + uid : '#';
         aUser.innerHTML = '<i class="fa fa-lg fa-user"></i>';
         liUser.appendChild(aUser);
+        if (uname) {
+            var group = (typeof window.gs_usergroup !== 'undefined') ? String(window.gs_usergroup) : '';
+            var tip = document.createElement('div');
+            tip.className = 'gs-tooltip';
+            tip.appendChild(document.createTextNode('Logged in as '));
+            var nameEl = document.createElement('strong');
+            if (/^[1-8]$/.test(group)) nameEl.className = 'usergroup-' + group;
+            nameEl.textContent = uname;
+            tip.appendChild(nameEl);
+            liUser.appendChild(tip);
+        }
         ul.appendChild(liUser);
 
         box.appendChild(ul);
