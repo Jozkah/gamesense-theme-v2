@@ -1,7 +1,7 @@
 /* ==UserStyle==
 @name           gamesense theme v2
 @namespace      github.com/Jozkah/gamesense-theme-v2
-@version        0.8.2
+@version        0.8.3
 @description    gamesense forum theme v2 — pixel-matched dark restyle of the gamesense.pub forum
 @author         Jozkah
 @homepageURL    https://github.com/Jozkah/gamesense-theme-v2
@@ -3164,8 +3164,15 @@
     /* Wordmark: Stratum2 (CS2's real face) if installed, else the
        Chakra Petch webfont the userscript loads, else system blacks. */
     #brdtitle h1 {
-        font-family: "Stratum2 Black", "Stratum2", "GS Stratum Fallback",
-                     "Chakra Petch", "Segoe UI Black", "Arial Black",
+        /* Stratum2 Bold is CS2's wordmark face. It is NOT bundled here —
+           it's a commercial typeface (Process Type Foundry) that ships
+           inside CS2 as an encrypted .uifont, so it cannot be legally
+           redistributed in this repo. Install Stratum2 locally and the
+           browser picks it up automatically (font-weight:700 selects the
+           Bold cut); everyone else falls back to the embedded lookalike. */
+        font-family: "Stratum2", "Stratum2 Bold", "Stratum2 Black",
+                     "GS Stratum Fallback", "Chakra Petch",
+                     "Segoe UI Black", "Arial Black",
                      var(--font-display) !important;
     }
 
