@@ -1,7 +1,7 @@
 /* ==UserStyle==
 @name           gamesense theme v2
 @namespace      github.com/Jozkah/gamesense-theme-v2
-@version        0.6.1
+@version        0.6.2
 @description    gamesense forum theme v2 — pixel-matched dark restyle of the gamesense.pub forum
 @author         Jozkah
 @homepageURL    https://github.com/Jozkah/gamesense-theme-v2
@@ -20,12 +20,12 @@
         /* Panels are SOLID — the texture lives only on the page behind
            them (translucent panels made the stripes bleed through and
            shifted every colour off-target). */
-        --surface:       #171717;  /* forum rows, panels                  */
-        --surface-alt:   #1b1b1b;  /* alternate surfaces                  */
-        --surface-hover: #202020;  /* row hover                           */
-        --header-bg:     #1a1a1a;  /* navbar (lightest layer)             */
+        --surface:       #191919;  /* forum rows, panels                  */
+        --surface-alt:   #1d1d1d;  /* alternate surfaces                  */
+        --surface-hover: #222222;  /* row hover                           */
+        --header-bg:     #141414;  /* navbar (lightest layer)             */
         --panel-title:   #101010;  /* category title bars                 */
-        --shout-bg:      #141414;  /* shoutbox body                       */
+        --shout-bg:      #161616;  /* shoutbox body                       */
 
         --border:        #282828;  /* default hairline dividers           */
         --border-soft:   #202020;  /* softer inner dividers               */
@@ -3173,5 +3173,61 @@
         font-family: "Stratum2 Black", "Stratum2", "GS Stratum Fallback",
                      "Chakra Petch", "Segoe UI Black", "Arial Black",
                      var(--font-display) !important;
+    }
+
+    /* ==================================================================
+       v0.6.2 — measured geometry pass (navbar 52px, tight nav, tones)
+       ================================================================== */
+
+    /* Navbar row is 52px tall (measured from the target), not 60.
+       (padding: 0 kills the .inbox 6px/12px padding that inflated it) */
+    #brdtitle {
+        height: 52px;
+        padding: 0;
+    }
+
+    #brdheader #brdmenu {
+        line-height: 52px;
+        height: 52px;
+        padding: 0;
+    }
+
+    #gs-header-icons {
+        height: 52px;
+    }
+
+    /* Full-bleed header bands re-stopped for the 52px navbar. */
+    #brdheader {
+        background: linear-gradient(
+            to bottom,
+            var(--header-bg) 0,
+            var(--header-bg) 52px,
+            #000 52px,
+            #000 53px,
+            #0f0f10 53px,
+            #0f0f10 100%);
+    }
+
+    /* Nav links: tighter rhythm, smaller type (measured ~14px gaps, 11px).
+       top: -3px re-centres after the 60->52px row change. */
+    #brdheader #brdmenu li {
+        margin-right: 14px;
+        top: -3px;
+    }
+
+    #brdmenu a:link,
+    #brdmenu a:visited {
+        font-size: 11px;
+    }
+
+    #brdmenu ul::before {
+        height: 20px;
+        margin-right: 14px;
+    }
+
+    /* Sub-header: slimmer padding to match its ~32px band. */
+    #brdheader #brdwelcome {
+        padding-top: 8px;
+        padding-bottom: 8px;
     }
 }
