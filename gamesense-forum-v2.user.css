@@ -1,7 +1,7 @@
 /* ==UserStyle==
 @name           gamesense theme v2
 @namespace      github.com/Jozkah/gamesense-theme-v2
-@version        0.16.1
+@version        0.16.2
 @description    gamesense forum theme v2 — pixel-matched dark restyle of the gamesense.pub forum
 @author         Jozkah
 @homepageURL    https://github.com/Jozkah/gamesense-theme-v2
@@ -3608,11 +3608,12 @@ EOT;
                      0 1px 4px rgba(0, 0, 0, 0.45);
     }
 
-    /* ...and let each legend line carry its own pixel underneath, so the
-       outline adds a pixel below, breaks at the title, then resumes. */
+    /* ...and let each legend line carry its own pixel ABOVE it, matching
+       the outer ring on the sides: the outline runs above the legend line,
+       breaks at the title, then resumes. */
     #brdmain h2::before,
     #brdmain h2::after {
-        box-shadow: 0 1px 0 0 var(--outline-dark);
+        box-shadow: 0 -1px 0 0 var(--outline-dark);
     }
 
     /* Boxes with no legend (stats/footer) keep a full ring. */
