@@ -1,7 +1,7 @@
 /* ==UserStyle==
 @name           gamesense theme v2
 @namespace      github.com/Jozkah/gamesense-theme-v2
-@version        0.7.5
+@version        0.8.1
 @description    gamesense forum theme v2 — pixel-matched dark restyle of the gamesense.pub forum
 @author         Jozkah
 @homepageURL    https://github.com/Jozkah/gamesense-theme-v2
@@ -340,7 +340,11 @@
     }
 
     .pun {
-        max-width: 1120px;
+        /* Proportional like the target (1070/1414 = ~76% of viewport), so
+           it fills big screens instead of sitting in a narrow column.
+           Capped for ultra-wide displays. */
+        width: 76%;
+        max-width: 1800px;
         min-width: 320px;
         margin: 0 auto;
         padding: 12px 20px;
@@ -413,7 +417,8 @@
     #brdheader .box {
         border-top-width: unset;
         border-radius: unset;
-        max-width: 1120px;
+        width: 76%;
+        max-width: 1800px;
         min-width: 300px;
         margin: auto;
         background-color: transparent;
@@ -2217,9 +2222,7 @@
     /* ---- Category titles as "legend" headers: ─ Title ───────────── ----
        The h2 becomes a flex row: short line, title, long line. The box
        below loses its top border (the h2 line IS the top edge). */
-    #brdmain .blocktable h2,
-    #brdmain .blockform h2,
-    #brdmain .block h2 {
+    #brdmain h2 {
         display: flex;
         align-items: center;
         background: transparent !important;
@@ -2230,9 +2233,7 @@
         color: var(--text-strong);
     }
 
-    #brdmain .blocktable h2::before,
-    #brdmain .blockform h2::before,
-    #brdmain .block h2::before {
+    #brdmain h2::before {
         content: "";
         width: 12px;
         height: 1px;
@@ -2241,9 +2242,7 @@
         flex: 0 0 auto;
     }
 
-    #brdmain .blocktable h2::after,
-    #brdmain .blockform h2::after,
-    #brdmain .block h2::after {
+    #brdmain h2::after {
         content: "";
         flex: 1 1 auto;
         height: 1px;
@@ -2251,9 +2250,7 @@
         margin-left: 8px;
     }
 
-    #brdmain .blocktable .box,
-    #brdmain .blockform .box,
-    #brdmain .block .box {
+    #brdmain .box {
         border-top: none;
     }
 
@@ -2555,9 +2552,7 @@
     /* Legends sit ON the top line of their box: transparent background,
        the flanking lines form the box's top edge, and the title overlaps
        it (fieldset-legend look). */
-    #brdmain .blocktable h2,
-    #brdmain .blockform h2,
-    #brdmain .block h2 {
+    #brdmain h2 {
         padding: 0;
         margin: 0 0 -8px 0;    /* pull the box up under the title       */
         position: relative;
@@ -2693,9 +2688,7 @@
     #brdmain .blocktable h2::before,
     #brdmain .blockform h2::before,
     #brdmain .block h2::before,
-    #brdmain .blocktable h2::after,
-    #brdmain .blockform h2::after,
-    #brdmain .block h2::after {
+    #brdmain h2::after {
         background: #2a2a2a;
     }
 
@@ -3252,9 +3245,7 @@
 
     /* Boxes under legends still drop their top border (the legend line is
        the top edge). */
-    #brdmain .blocktable .box,
-    #brdmain .blockform .box,
-    #brdmain .block .box {
+    #brdmain .box {
         border-top: none;
     }
 
@@ -3262,9 +3253,7 @@
     #brdmain .blocktable h2::before,
     #brdmain .blockform h2::before,
     #brdmain .block h2::before,
-    #brdmain .blocktable h2::after,
-    #brdmain .blockform h2::after,
-    #brdmain .block h2::after {
+    #brdmain h2::after {
         background: #3a3a3a;
     }
     /* ==================================================================
@@ -3295,9 +3284,7 @@
     #brdmain .blocktable h2::before,
     #brdmain .blockform h2::before,
     #brdmain .block h2::before,
-    #brdmain .blocktable h2::after,
-    #brdmain .blockform h2::after,
-    #brdmain .block h2::after {
+    #brdmain h2::after {
         background: #282828;
     }
 
