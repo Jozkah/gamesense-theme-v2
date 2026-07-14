@@ -1,7 +1,7 @@
 /* ==UserStyle==
 @name           gamesense theme v2
 @namespace      github.com/Jozkah/gamesense-theme-v2
-@version        0.10.5
+@version        0.11.0
 @description    gamesense forum theme v2 — pixel-matched dark restyle of the gamesense.pub forum
 @author         Jozkah
 @homepageURL    https://github.com/Jozkah/gamesense-theme-v2
@@ -3286,16 +3286,43 @@ EOT;
        (right, vertically centred), lighter box with a visible border,
        Verdana 9. */
     .gs-tooltip {
-        top: 50%;
-        right: auto;
-        left: calc(100% + 9px);
-        transform: translateY(-50%);
-        background: #242424;
-        border: 1px solid #3c3c3c;
-        color: #cfcfcf;
-        font: 9px Verdana, Geneva, sans-serif;
-        padding: 4px 8px;
-        box-shadow: none;
+        top: calc(100% + 11px);
+        left: auto;
+        right: -6px;
+        transform: none;
+        background: #131313;
+        border: 1px solid #303030;
+        color: var(--text-dim);
+        font-family: var(--font-body);
+        font-size: 11px;
+        line-height: 1.3;
+        padding: 6px 10px;
+        box-shadow: 0 4px 14px rgba(0, 0, 0, 0.7);
+    }
+
+    /* Caret, matching the notifications panel. */
+    .gs-tooltip::before {
+        content: "";
+        position: absolute;
+        top: -7px;
+        right: 10px;
+        border-left: 7px solid transparent;
+        border-right: 7px solid transparent;
+        border-bottom: 7px solid #3d3d3d;
+    }
+
+    .gs-tooltip::after {
+        content: "";
+        position: absolute;
+        top: -5px;
+        right: 12px;
+        border-left: 5px solid transparent;
+        border-right: 5px solid transparent;
+        border-bottom: 5px solid #131313;
+    }
+
+    .gs-tooltip strong {
+        font-weight: 700;
     }
 
     /* ==================================================================
@@ -3563,8 +3590,8 @@ EOT;
        divider before the last-post column stays #282828. */
     .pun tbody td,
     .pun tbody th {
-        border-top-width: 2px;
-        border-top-color: #0f0f0f;
+        border-top-width: 1px;
+        border-top-color: #282828;
     }
 
     /* Mention rows (sb.js replaces the parity class with rowHighlight) —
