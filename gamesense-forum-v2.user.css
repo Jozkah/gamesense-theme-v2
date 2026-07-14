@@ -1,7 +1,7 @@
 /* ==UserStyle==
 @name           gamesense theme v2
 @namespace      github.com/Jozkah/gamesense-theme-v2
-@version        0.4.1
+@version        0.4.2
 @description    gamesense forum theme v2 — pixel-matched dark restyle of the gamesense.pub forum
 @author         Jozkah
 @homepageURL    https://github.com/Jozkah/gamesense-theme-v2
@@ -2708,5 +2708,66 @@
        clears the "- - -" placeholder; keep the cell from adding height. */
     .pun .iredirect .tcr {
         color: transparent;
+    }
+
+    /* ==================================================================
+       v0.4.2 — top bars, icons, separators, shout blur, sound icon, nav
+       ================================================================== */
+
+    /* Top bars: the NAVBAR is the lighter strip, the sub-header darker
+       (was inverted). */
+    #brdheader {
+        background: #191a19;
+    }
+
+    #brdheader #brdwelcome {
+        background: #0f0f0f;
+    }
+
+    /* Top gradient line: genuine gs-divider colours — blue left, magenta
+       centre, yellow-green right. */
+    body::before {
+        background: linear-gradient(to right, #1e5799 0%, #f300ff 50%, #e0ff00 100%);
+    }
+
+    /* Header icons: tighter cluster. */
+    #gs-header-icons {
+        gap: 10px;
+    }
+
+    /* Visible separator bars between forum rows. */
+    #brdfooter #modcontrols,
+    .pun td {
+        border-color: #282828;
+    }
+
+    /* Nav links sit a touch lower, optically centred with the wordmark. */
+    #brdmenu li {
+        position: relative;
+        top: 2px;
+    }
+
+    /* Small blur at the top of the shoutbox — the scrolled-out message
+       fades under the title (sticky overlay inside the scroller). */
+    #shout > div:nth-of-type(1)::before {
+        content: "";
+        position: sticky;
+        top: 0;
+        display: block;
+        width: 100%;
+        height: 16px;
+        margin-bottom: -16px;
+        backdrop-filter: blur(2px);
+        -webkit-backdrop-filter: blur(2px);
+        -webkit-mask-image: linear-gradient(to bottom, #000 30%, transparent);
+        mask-image: linear-gradient(to bottom, #000 30%, transparent);
+        pointer-events: none;
+        z-index: 3;
+    }
+
+    /* Sound icon: restore Font Awesome inside the shoutbox (the global
+       #shout * font override was clobbering the glyph font -> tofu box). */
+    #shout .fa {
+        font-family: FontAwesome !important;
     }
 }
