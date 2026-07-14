@@ -1,7 +1,7 @@
 /* ==UserStyle==
 @name           gamesense theme v2
 @namespace      github.com/Jozkah/gamesense-theme-v2
-@version        0.4.2
+@version        0.4.3
 @description    gamesense forum theme v2 — pixel-matched dark restyle of the gamesense.pub forum
 @author         Jozkah
 @homepageURL    https://github.com/Jozkah/gamesense-theme-v2
@@ -2769,5 +2769,95 @@
        #shout * font override was clobbering the glyph font -> tofu box). */
     #shout .fa {
         font-family: FontAwesome !important;
+    }
+
+    /* ==================================================================
+       v0.4.3 — header polish + separators (from the high-res target)
+       ================================================================== */
+
+    /* Icons truly close together — vanilla ships
+       #navnotifications { margin-right: 20px !important } which kept
+       spreading the cluster. */
+    #gs-header-icons {
+        gap: 8px;
+    }
+
+    #gs-header-icons li,
+    #gs-header-icons #navnotifications {
+        margin: 0 !important;
+    }
+
+    /* Navbar vertical centring: wordmark and links share the same 60px
+       centreline instead of relying on padding guesses. */
+    #brdtitle {
+        float: left;
+        height: 60px;
+        display: flex;
+        align-items: center;
+        margin-right: 24px;
+    }
+
+    #brdtitle h1 {
+        padding: 0;
+    }
+
+    #brdmenu li {
+        top: 4px;             /* measured: aligns link centre with wordmark */
+    }
+
+    /* Vertical separator bar between the wordmark and "Index". */
+    #brdmenu ul::before {
+        content: "";
+        display: inline-block;
+        width: 1px;
+        height: 22px;
+        background: #333;
+        vertical-align: middle;
+        margin-right: 20px;
+    }
+
+    /* Three colour layers: navbar (lightest) > sub-header > page. */
+    #brdheader #brdwelcome {
+        background: #141414;
+    }
+
+    /* Shout sound button: plain glyph — no outline, box or dark fill. */
+    #shoutvol,
+    #shoutvol .fa {
+        background: transparent !important;
+        border: none !important;
+        outline: none !important;
+        box-shadow: none !important;
+        color: #8a8a8a;
+    }
+
+    #shoutvol:hover,
+    #shoutvol:hover .fa {
+        color: #fff;
+    }
+
+    /* Redirect forums ("CS:GO Lua API"): blue name with the external-link
+       glyph in front. */
+    .pun .iredirect .tcl h3 a {
+        color: var(--blue);
+    }
+
+    .pun .iredirect .tcl h3 a:hover {
+        color: var(--blue-hover);
+    }
+
+    .pun .iredirect .tcl h3 a::before {
+        content: "\f08e";
+        font-family: FontAwesome;
+        font-weight: 400;
+        margin-right: 5px;
+        font-size: 10px;
+    }
+
+    /* Separator bar behind the posts: vertical divider in front of the
+       last-post column (plus the horizontal row lines). */
+    .pun tbody td,
+    .pun tbody th {
+        border-style: solid none none solid;
     }
 }
