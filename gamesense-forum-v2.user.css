@@ -1,7 +1,7 @@
 /* ==UserStyle==
 @name           gamesense theme v2
 @namespace      github.com/Jozkah/gamesense-theme-v2
-@version        0.13.3
+@version        0.14.1
 @description    gamesense forum theme v2 — pixel-matched dark restyle of the gamesense.pub forum
 @author         Jozkah
 @homepageURL    https://github.com/Jozkah/gamesense-theme-v2
@@ -2193,8 +2193,8 @@ EOT;
        box's top edge). Index rows are 46px tall with vertically-centred
        text so they clear it, but forum/topic rows and "Forum is empty."
        start at the very top and got overlapped. Reserve that space. */
-    #brdmain .blocktable > .box {
-        padding-top: 8px;
+    #brdmain .blocktable tbody tr:first-child > td {
+        padding-top: 12px;   /* 4px default + the 8px the legend overlaps */
     }
 
     /* ...but the first row still drew its own border-top, so the reserved
@@ -3589,6 +3589,51 @@ EOT;
         top: 3px;
         border-bottom: none;
         box-shadow: 0 1px 0 0 var(--outline-dark);
+    }
+
+    /* ---- Outline / centring corrections ------------------------------ */
+
+    /* The outer dark ring must NOT cross the top edge: that's the legend's
+       territory. Ring the sides and bottom only... */
+    .pun .box {
+        box-shadow: -1px 0 0 0 var(--outline-dark),
+                     1px 0 0 0 var(--outline-dark),
+                     0 1px 0 0 var(--outline-dark),
+                     0 1px 4px rgba(0, 0, 0, 0.45);
+    }
+
+    /* ...and let each legend line carry its own pixel underneath, so the
+       outline adds a pixel below, breaks at the title, then resumes. */
+    #brdmain h2::before,
+    #brdmain h2::after {
+        box-shadow: 0 1px 0 0 var(--outline-dark);
+    }
+
+    /* Boxes with no legend (stats/footer) keep a full ring. */
+    #brdmain #brdstats .box,
+    #brdmain #brdfooter .box,
+    #brdfooter .box {
+        box-shadow: 0 0 0 1px var(--outline-dark),
+                    0 1px 4px rgba(0, 0, 0, 0.45);
+    }
+
+    /* Nav row: flex-centre everything against the 52px band. vertical-align
+       aligned the separator to the baseline, not the band's centre. */
+    #brdheader #brdmenu ul {
+        display: flex;
+        align-items: center;
+        height: 52px;
+        padding: 0;   /* .pun ul reset gives it 3px 0, making it 58px */
+        margin: 0;
+    }
+
+    #brdheader #brdmenu li {
+        top: 0;              /* flex centring replaces the -3px nudge */
+    }
+
+    #brdmenu ul::before {
+        flex: 0 0 auto;
+        vertical-align: baseline;
     }
 
     /* Injection point for the "Top-left logo" dropdown above. Inert
