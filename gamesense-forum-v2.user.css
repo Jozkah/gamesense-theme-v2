@@ -1,7 +1,7 @@
 /* ==UserStyle==
 @name           gamesense theme v2
 @namespace      github.com/Jozkah/gamesense-theme-v2
-@version        0.4.3
+@version        0.4.4
 @description    gamesense forum theme v2 — pixel-matched dark restyle of the gamesense.pub forum
 @author         Jozkah
 @homepageURL    https://github.com/Jozkah/gamesense-theme-v2
@@ -16,15 +16,16 @@
        and the change propagates everywhere it is used.
        ===================================================================== */
     :root {
-        --bg:            #0b0b0b;  /* page background (under the texture) */
-        /* Surfaces are semi-transparent so the vertical-line texture shows
-           through — this is what gives the panels their subtle depth. */
-        --surface:       rgba(20, 20, 20, 0.82);  /* forum rows, panels   */
-        --surface-alt:   rgba(26, 26, 26, 0.82);  /* alternate surfaces   */
-        --surface-hover: rgba(34, 34, 34, 0.9);   /* row hover            */
-        --header-bg:     rgba(6, 6, 6, 0.92);      /* navbar              */
-        --panel-title:   rgba(9, 9, 9, 0.92);      /* category title bars */
-        --shout-bg:      rgba(15, 15, 15, 0.85);   /* shoutbox body       */
+        --bg:            #0a0a0a;  /* page background (under the texture) */
+        /* Panels are SOLID — the texture lives only on the page behind
+           them (translucent panels made the stripes bleed through and
+           shifted every colour off-target). */
+        --surface:       #171717;  /* forum rows, panels                  */
+        --surface-alt:   #1b1b1b;  /* alternate surfaces                  */
+        --surface-hover: #202020;  /* row hover                           */
+        --header-bg:     #1a1a1a;  /* navbar (lightest layer)             */
+        --panel-title:   #101010;  /* category title bars                 */
+        --shout-bg:      #141414;  /* shoutbox body                       */
 
         --border:        #282828;  /* default hairline dividers           */
         --border-soft:   #202020;  /* softer inner dividers               */
@@ -2859,5 +2860,62 @@
     .pun tbody td,
     .pun tbody th {
         border-style: solid none none solid;
+    }
+
+    /* ==================================================================
+       v0.4.4 — solid backgrounds, icon side, subtle title blur
+       ================================================================== */
+
+    /* The content column is fully transparent — texture shows between
+       boxes only; panels themselves are solid (see :root). */
+    .pun {
+        background-color: transparent;
+    }
+
+    /* Three solid layers: navbar > sub-header > page. */
+    #brdheader {
+        background: var(--header-bg);
+    }
+
+    #brdheader #brdwelcome {
+        background: #131313;
+    }
+
+    /* Lua API link icon goes AFTER the name, not in front. */
+    .pun .iredirect .tcl h3 a::before {
+        content: none;
+    }
+
+    .pun .iredirect .tcl h3 a::after {
+        content: "\f08e";
+        font-family: FontAwesome;
+        font-weight: 400;
+        margin-left: 5px;
+        font-size: 10px;
+    }
+
+    /* Shoutbox top blur, redone: kill the broken in-scroller sticky band
+       and pin a near-invisible fade to the top of the shout box itself —
+       it sits BEHIND the legend title (title is z-index 2 above it). */
+    #shout > div:nth-of-type(1)::before {
+        content: none;
+    }
+
+    #brdmain .blockform .box:has(#shout) {
+        position: relative;
+    }
+
+    #brdmain .blockform .box:has(#shout)::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 12px;
+        z-index: 1;
+        pointer-events: none;
+        backdrop-filter: blur(0.5px);
+        -webkit-backdrop-filter: blur(0.5px);
+        background: linear-gradient(to bottom, rgba(10, 10, 10, 0.45), transparent);
     }
 }
