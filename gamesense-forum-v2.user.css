@@ -1,7 +1,7 @@
 /* ==UserStyle==
 @name           gamesense theme v2
 @namespace      github.com/Jozkah/gamesense-theme-v2
-@version        0.6.2
+@version        0.6.3
 @description    gamesense forum theme v2 — pixel-matched dark restyle of the gamesense.pub forum
 @author         Jozkah
 @homepageURL    https://github.com/Jozkah/gamesense-theme-v2
@@ -16,16 +16,16 @@
        and the change propagates everywhere it is used.
        ===================================================================== */
     :root {
-        --bg:            #0a0a0a;  /* page background (under the texture) */
+        --bg:            #0f0f0f;  /* page background (under the texture) */
         /* Panels are SOLID — the texture lives only on the page behind
            them (translucent panels made the stripes bleed through and
            shifted every colour off-target). */
-        --surface:       #191919;  /* forum rows, panels                  */
-        --surface-alt:   #1d1d1d;  /* alternate surfaces                  */
-        --surface-hover: #222222;  /* row hover                           */
-        --header-bg:     #141414;  /* navbar (lightest layer)             */
-        --panel-title:   #101010;  /* category title bars                 */
-        --shout-bg:      #161616;  /* shoutbox body                       */
+        --surface:       #1d1d1d;  /* forum rows, panels                  */
+        --surface-alt:   #212121;  /* alternate surfaces                  */
+        --surface-hover: #262626;  /* row hover                           */
+        --header-bg:     #191919;  /* navbar (lightest layer)             */
+        --panel-title:   #141414;  /* category title bars                 */
+        --shout-bg:      #1a1a1a;  /* shoutbox body                       */
 
         --border:        #282828;  /* default hairline dividers           */
         --border-soft:   #202020;  /* softer inner dividers               */
@@ -340,7 +340,7 @@
     }
 
     .pun {
-        max-width: 1070px;
+        max-width: 1120px;
         min-width: 320px;
         margin: 0 auto;
         padding: 12px 20px;
@@ -413,7 +413,7 @@
     #brdheader .box {
         border-top-width: unset;
         border-radius: unset;
-        max-width: 1070px;
+        max-width: 1120px;
         min-width: 300px;
         margin: auto;
         background-color: transparent;
@@ -1624,7 +1624,7 @@
 
     .gs-nav-container {
         width: 100%;
-        max-width: 1070px;
+        max-width: 1120px;
         margin: 0 auto;
         height: 60px;
         border-bottom: 1px solid #000
@@ -2890,7 +2890,7 @@
     }
 
     #brdheader #brdwelcome {
-        background: #131313;
+        background: #141414;
     }
 
     /* Lua API link icon goes AFTER the name, not in front. */
@@ -3204,8 +3204,8 @@
             var(--header-bg) 52px,
             #000 52px,
             #000 53px,
-            #0f0f10 53px,
-            #0f0f10 100%);
+            #141414 53px,
+            #141414 100%);
     }
 
     /* Nav links: tighter rhythm, smaller type (measured ~14px gaps, 11px).
