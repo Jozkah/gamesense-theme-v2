@@ -1,7 +1,7 @@
 /* ==UserStyle==
 @name           gamesense theme v2
 @namespace      github.com/Jozkah/gamesense-theme-v2
-@version        0.15.0
+@version        0.16.1
 @description    gamesense forum theme v2 — pixel-matched dark restyle of the gamesense.pub forum
 @author         Jozkah
 @homepageURL    https://github.com/Jozkah/gamesense-theme-v2
@@ -3640,6 +3640,115 @@ EOT;
     #brdmenu ul::before {
         flex: 0 0 auto;
         vertical-align: baseline;
+    }
+
+    /* ---- Form / info blocks (PM "Info", payments, profile) -----------
+       The section legend sits 8px INTO its box, so anything starting at the
+       box's top edge gets overlapped - that's why "Info" landed on top of
+       "Attention!!!". Reserve the space inside the form wrapper. */
+    #brdmain .box > .inform,
+    #brdmain .box > .fakeform,
+    #brdmain .box > form {
+        padding-top: 12px;
+    }
+
+    /* Info blocks nest a bordered fieldset inside the box, so its legend
+       ("Attention!!!") rendered as a second title bar right under the
+       section legend ("Info") - two stacked headers. Make the inner
+       fieldset seamless: the box IS the container. */
+    #brdmain .box > .inform > fieldset {
+        border: none;
+        background: transparent;
+        padding: 0;
+        margin: 0;
+    }
+
+    #brdmain .box > .inform > fieldset > legend {
+        padding: 0 0 2px 0;
+        color: var(--text-dim);
+        font-weight: 700;
+    }
+
+    #brdmain .box > .inform > fieldset > .infldset {
+        padding: 2px 0 4px 0;
+    }
+
+    /* Other nested fieldsets (profile/payment forms) keep a real frame. */
+    .pun fieldset {
+        border: 1px solid var(--border);
+        background: var(--surface-alt);
+        padding: 0 12px;
+        margin-bottom: 10px;
+    }
+
+    .pun legend {
+        color: var(--text-strong);
+        font-weight: 700;
+        font-size: 11px;
+        padding: 0 6px;
+    }
+
+    .pun .infldset {
+        padding: 9px 0 12px 0;
+    }
+
+    .pun .infldset p {
+        color: var(--text);
+    }
+
+    /* ---- Payments page ----------------------------------------------- */
+    #payment-container fieldset,
+    #confirmation .status {
+        background: var(--surface-alt);
+        border: 1px solid var(--border);
+        border-radius: 0;
+    }
+
+    #payment-container .field {
+        color: var(--text);
+        background: transparent;
+    }
+
+    #payment th {
+        background: transparent;
+        color: var(--text-strong);
+    }
+
+    #payment td,
+    #payment th {
+        border-color: var(--border);
+    }
+
+    #payment fieldset td span {
+        color: var(--text-dim);
+    }
+
+    #confirmation h1 {
+        color: var(--text-strong);
+    }
+
+    #confirmation .note,
+    #confirmation .error-message {
+        color: var(--text-dim);
+    }
+
+    /* Stripe card field on the dark surface. */
+    #stripe-elements-card,
+    #card-element {
+        background: var(--surface);
+        border: 1px solid var(--border);
+        padding: 8px 10px;
+    }
+
+    .pun .payment-icons img {
+        border-color: var(--border);
+    }
+
+    /* The locally-tracked payment history bar the userscript injects. */
+    .gs-payment-history-bar {
+        color: var(--text-dim);
+        font-size: 11px;
+        padding: 4px 0;
     }
 
     /* Injection point for the "Top-left logo" dropdown above. Inert
