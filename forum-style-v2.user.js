@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         gamesense theme v2 — forum script
 // @namespace    https://github.com/Jozkah/gamesense-theme-v2
-// @version      0.3.1
+// @version      0.4.0
 // @description  Companion script for gamesense theme v2: wordmark split, header offset sync, privacy masking.
 // @author       Jozkah
 // @match        https://gamesense.pub/forums/*
@@ -180,7 +180,77 @@
         convertShoutTimes(shout);
         new MutationObserver(function () {
             convertShoutTimes(shout);
+            // sb.js can rebuild the form (e.g. on reconnect) and wipe the
+            // picker — buildEmojiPicker is guarded, so re-running is cheap.
+            buildEmojiPicker();
         }).observe(shout, { childList: true, subtree: true });
+    }
+
+    /* ------------------------------------------------------------------
+       8. Custom emoji picker — replaces the native <select> (which renders
+          as a white OS dropdown) with a dark grid panel above the input.
+          Ported from v1, restyled for v2 (styles live in the user.css).
+       ------------------------------------------------------------------ */
+    function buildEmojiPicker() {
+        var shout = document.getElementById('shout');
+        if (!shout || document.getElementById('gs-emoji-btn')) return;
+
+        var input = shout.querySelector('#shouttext');
+        var select = shout.querySelector('#emojiselector');
+        var form = shout.querySelector(':scope > form');
+        if (!input || !select || !form) return;
+
+        var emojis = Array.prototype.map.call(select.options, function (o) {
+            return o.textContent;
+        }).filter(Boolean);
+        if (!emojis.length) return;
+
+        // Retire the native select; keep it in the DOM for the site JS.
+        select.id = 'emojiselector-native';
+        select.style.display = 'none';
+
+        var btn = document.createElement('button');
+        btn.id = 'gs-emoji-btn';
+        btn.type = 'button';
+        btn.textContent = '😀';
+        form.appendChild(btn);
+
+        var panel = document.createElement('div');
+        panel.id = 'gs-emoji-panel';
+        emojis.forEach(function (emoji) {
+            var b = document.createElement('button');
+            b.type = 'button';
+            b.textContent = emoji;
+            b.addEventListener('click', function () {
+                input.value += emoji;
+                input.focus();
+            });
+            panel.appendChild(b);
+        });
+        form.appendChild(panel);
+
+        // The panel pops above the input — the shout container must not
+        // clip it.
+        shout.style.overflow = 'hidden';
+        form.style.overflow = 'visible';
+
+        function close(e) {
+            if (e && (panel.contains(e.target) || e.target === btn)) return;
+            panel.classList.remove('open');
+            document.removeEventListener('click', close);
+        }
+
+        btn.addEventListener('click', function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+            if (panel.classList.toggle('open')) {
+                requestAnimationFrame(function () {
+                    document.addEventListener('click', close);
+                });
+            } else {
+                document.removeEventListener('click', close);
+            }
+        });
     }
 
     function run() {
@@ -189,6 +259,7 @@
         renameShoutbox();
         renameSections();
         watchShoutbox();
+        buildEmojiPicker();
         syncHeaderOffset();
         maskSensitive();
     }
