@@ -1,7 +1,7 @@
 /* ==UserStyle==
 @name           gamesense theme v2
 @namespace      github.com/Jozkah/gamesense-theme-v2
-@version        0.6.4
+@version        0.6.5
 @description    gamesense forum theme v2 — pixel-matched dark restyle of the gamesense.pub forum
 @author         Jozkah
 @homepageURL    https://github.com/Jozkah/gamesense-theme-v2
@@ -3229,5 +3229,39 @@
     #brdheader #brdwelcome {
         padding-top: 8px;
         padding-bottom: 8px;
+    }
+
+    /* ==================================================================
+       v0.6.5 — depth pass: text shadows, box outlines, header line colour
+       ================================================================== */
+
+    /* Subtle dark shadow behind all text (target's embossed depth). */
+    .pun,
+    #brdheader {
+        text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.55);
+    }
+
+    /* Visible box outlines: 1px border + soft dark drop for separation. */
+    .pun .box {
+        border: 1px solid #313131;
+        box-shadow: 0 1px 4px rgba(0, 0, 0, 0.45);
+    }
+
+    /* Boxes under legends still drop their top border (the legend line is
+       the top edge). */
+    #brdmain .blocktable .box,
+    #brdmain .blockform .box,
+    #brdmain .block .box {
+        border-top: none;
+    }
+
+    /* Legend/header lines: lighter so they read as real outlines. */
+    #brdmain .blocktable h2::before,
+    #brdmain .blockform h2::before,
+    #brdmain .block h2::before,
+    #brdmain .blocktable h2::after,
+    #brdmain .blockform h2::after,
+    #brdmain .block h2::after {
+        background: #3a3a3a;
     }
 }
