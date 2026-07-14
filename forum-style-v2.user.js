@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         gamesense theme v2 — forum script
 // @namespace    https://github.com/Jozkah/gamesense-theme-v2
-// @version      0.3.0
+// @version      0.3.1
 // @description  Companion script for gamesense theme v2: wordmark split, header offset sync, privacy masking.
 // @author       Jozkah
 // @match        https://gamesense.pub/forums/*
@@ -105,7 +105,13 @@
 
         // Bell -> move the existing li (preserves the notifications JS).
         var bell = document.getElementById('navnotifications');
-        if (bell) ul.appendChild(bell);
+        if (bell) {
+            ul.appendChild(bell);
+            // Nest the dropdown inside the bell li so CSS can anchor it
+            // directly beneath the icon.
+            var dropdown = document.getElementById('notifications-container');
+            if (dropdown) bell.appendChild(dropdown);
+        }
 
         // User -> own profile, tooltip "Logged in as <name>".
         var liUser = document.createElement('li');

@@ -1,7 +1,7 @@
 /* ==UserStyle==
 @name           gamesense theme v2
 @namespace      github.com/Jozkah/gamesense-theme-v2
-@version        0.3.0
+@version        0.3.1
 @description    gamesense forum theme v2 — pixel-matched dark restyle of the gamesense.pub forum
 @author         Jozkah
 @homepageURL    https://github.com/Jozkah/gamesense-theme-v2
@@ -2439,12 +2439,98 @@
         text-shadow: none;   /* banner logo is flat — no glow */
     }
 
-    /* Volume icon on the white input reads dark gray. */
+    /* ==================================================================
+       v0.3.1 — live feedback fixes
+       ================================================================== */
+
+    /* Legend titles: short line + title only — no trailing line. */
+    #brdmain .blocktable h2::after,
+    #brdmain .blockform h2::after,
+    #brdmain .block h2::after {
+        content: none;
+    }
+
+    /* Sub-forum rows: uniform colour, no odd/even alternation. */
+    .pun .rowodd,
+    .pun .roweven {
+        background-color: var(--surface);
+    }
+
+    /* ChatBot marker: small text-height tick before the name, not a
+       full-height edge bar. */
+    #shout p:has(> a.chatBot) {
+        border-left: none;
+        padding-left: 8px;
+    }
+
+    #shout p:has(> a.chatBot)::before {
+        content: "";
+        display: inline-block;
+        width: 3px;
+        height: 10px;
+        background: #26a269;
+        margin-right: 5px;
+        vertical-align: -1px;
+    }
+
+    /* Shout input: dark bar (fixes the white strip), light text. */
+    #shout input {
+        background: #191918;
+        color: #ccc;
+        border: none;
+        border-top: 1px solid #333;
+    }
+
     #shoutvol {
-        color: #555;
+        color: #888;
     }
 
     #shoutvol:hover {
-        color: #111;
+        color: #fff;
+    }
+
+    #emojiselector {
+        background: transparent;
+        color: #ccc;
+    }
+
+    /* Header icons: slightly smaller, tooltip anchored right under the
+       user icon instead of floating into the sub-header. */
+    #gs-header-icons .fa {
+        font-size: 16px;
+    }
+
+    #gs-header-icons [data-tooltip]:hover::after {
+        top: calc(100% + 12px);
+        right: -6px;
+    }
+
+    /* Notifications dropdown: anchored under the bell (the userscript
+       nests the container inside the bell <li>). */
+    #navnotifications {
+        position: relative;
+    }
+
+    #navnotifications #notifications-container {
+        position: absolute;
+        top: calc(100% + 14px);
+        right: -40px;
+        left: auto;
+        width: 330px;
+        background: #121212;
+        border: 1px solid var(--border);
+        box-shadow: 0 4px 14px rgba(0, 0, 0, 0.7);
+        padding: 4px 0;
+        z-index: 1001;
+    }
+
+    #notifications-container li {
+        border-bottom: 1px solid var(--border-soft) !important;
+        padding: 8px 14px;
+        list-style: none;
+    }
+
+    #notifications-container li:last-child {
+        border-bottom: none !important;
     }
 }
