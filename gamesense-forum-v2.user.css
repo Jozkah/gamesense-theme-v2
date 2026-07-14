@@ -1,7 +1,7 @@
 /* ==UserStyle==
 @name           gamesense theme v2
 @namespace      github.com/Jozkah/gamesense-theme-v2
-@version        0.7.3
+@version        0.7.4
 @description    gamesense forum theme v2 — pixel-matched dark restyle of the gamesense.pub forum
 @author         Jozkah
 @homepageURL    https://github.com/Jozkah/gamesense-theme-v2
@@ -2483,12 +2483,13 @@
     }
 
     /* Shout input: dark bar (fixes the white strip), large near-white text
-       like the target ("Hey guys! How has your day been?"). */
+       like the target. Inner #141414 outline sits inside the outer one. */
     #shout input {
         background: #191918;
         color: #e6e6e6;
         border: none;
         border-top: 1px solid #333;
+        box-shadow: inset 0 0 0 1px #141414;
         font-size: 1.5em;
         height: 24px;
         padding: 2px 78px 2px 8px;
@@ -3202,10 +3203,12 @@
             to bottom,
             var(--header-bg) 0,
             var(--header-bg) 52px,
-            #000 52px,
-            #000 53px,
-            #0e0e0e 53px,
-            #0e0e0e 100%);
+            #212121 52px,
+            #212121 53px,
+            #252525 53px,
+            #252525 54px,
+            #171717 54px,
+            #171717 100%);
     }
 
     /* Nav links: tighter rhythm, smaller type (measured ~14px gaps, 11px).
