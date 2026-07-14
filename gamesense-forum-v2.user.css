@@ -1,7 +1,7 @@
 /* ==UserStyle==
 @name           gamesense theme v2
 @namespace      github.com/Jozkah/gamesense-theme-v2
-@version        0.11.0
+@version        0.12.0
 @description    gamesense forum theme v2 — pixel-matched dark restyle of the gamesense.pub forum
 @author         Jozkah
 @homepageURL    https://github.com/Jozkah/gamesense-theme-v2
@@ -2206,76 +2206,17 @@ EOT;
         margin-top: 0;
     }
 
-    /* ---- Notifications dropdown finish -------------------------------
-       Centred on the bell (verified 0px offset). Caret was --border
-       (#282828) i.e. invisible on dark; make it read, and distinguish
-       new vs old notifications. */
-    #navnotifications #notifications-container {
-        padding: 0;
-        background: #131313;
-        border-color: #303030;
-    }
-
-    #navnotifications #notifications-container::before {
-        border-bottom-color: #3d3d3d;
-        border-left-width: 7px;
-        border-right-width: 7px;
-        border-bottom-width: 7px;
-        top: -7px;
-    }
-
-    /* Second caret layer fills the arrow body so it reads as a solid
-       pointer rather than a hollow outline. */
-    #navnotifications #notifications-container::after {
-        content: "";
-        position: absolute;
-        top: -5px;
-        left: 50%;
-        transform: translateX(-50%);
-        border-left: 5px solid transparent;
-        border-right: 5px solid transparent;
-        border-bottom: 5px solid #131313;
-    }
-
-    #notifications-body {
-        max-height: 320px;
-        overflow-y: auto;
-    }
-
-    #notifications-container li.new-notification {
-        font-weight: 700;
-        background: rgba(96, 160, 220, 0.07);
-        border-left: 2px solid var(--blue);
-    }
-
-    #notifications-container li.old-notification {
-        opacity: 1;                 /* vanilla dims to .75 — too washed */
-        border-left: 2px solid transparent;
-    }
-
-    #notifications-container li:hover {
-        background: var(--surface-hover);
-    }
-
-    #notifications-container li a:link,
-    #notifications-container li a:visited {
-        display: block;
-        color: var(--text);
-    }
-
-    #notifications-container li a:hover {
-        color: var(--text-strong);
-    }
-
-    #notifications-footer {
-        border-top: 1px solid var(--border);
-        background: #101010;
-    }
 
 
-    #notifications-footer p a {
-        color: var(--blue);
-    }
+
+
+
+
+
+
+
+
+
 
     /* The replies/views/mod columns carried their own opaque background
        (--surface-alt), painting over whatever colour the row set — so the
@@ -2535,32 +2476,9 @@ EOT;
         box-shadow: 0 2px 8px rgba(0, 0, 0, 0.6);
     }
 
-    /* Notifications dropdown (bell) — dark panel under the icons. */
-    #notifications-container {
-        position: absolute;
-        right: 20px;
-        top: 62px;
-        width: 320px;
-        background: #101010;
-        border: 1px solid var(--border);
-        box-shadow: 0 4px 14px rgba(0, 0, 0, 0.7);
-        z-index: 1001;
-    }
 
-    #notifications-container li {
-        border-bottom: 1px solid var(--border-soft);
-        padding: 6px 10px;
-    }
 
-    #notifications-container .dateTime {
-        color: var(--text-dim);
-        font-size: 10px;
-    }
 
-    #notifications-footer p {
-        text-align: center;
-        padding: 6px 0;
-    }
 
     /* ---- Sub-header: only the subscription line + Topics filters ----
        (two-id selector needed to beat the display:inline rule above) */
@@ -2738,28 +2656,8 @@ EOT;
         position: relative;
     }
 
-    #navnotifications #notifications-container {
-        position: absolute;
-        top: calc(100% + 14px);
-        right: -40px;
-        left: auto;
-        width: 330px;
-        background: #121212;
-        border: 1px solid var(--border);
-        box-shadow: 0 4px 14px rgba(0, 0, 0, 0.7);
-        padding: 4px 0;
-        z-index: 1001;
-    }
 
-    #notifications-container li {
-        border-bottom: 1px solid var(--border-soft) !important;
-        padding: 8px 14px;
-        list-style: none;
-    }
 
-    #notifications-container li:last-child {
-        border-bottom: none !important;
-    }
 
     /* ==================================================================
        v0.4.0 — legend overlap, centered notifications, custom emoji picker
@@ -2784,24 +2682,7 @@ EOT;
         margin-top: 18px;
     }
 
-    /* Notifications dropdown: centered under the bell, with a caret. */
-    #navnotifications #notifications-container {
-        left: 50%;
-        right: auto;
-        transform: translateX(-50%);
-        top: calc(100% + 12px);
-    }
 
-    #navnotifications #notifications-container::before {
-        content: "";
-        position: absolute;
-        top: -6px;
-        left: 50%;
-        transform: translateX(-50%);
-        border-left: 6px solid transparent;
-        border-right: 6px solid transparent;
-        border-bottom: 6px solid var(--border);
-    }
 
     /* Custom emoji picker (replaces the native <select>) — dark grid
        anchored above the input, v1 feature restyled for v2. */
@@ -3381,50 +3262,13 @@ EOT;
        v0.6.0 — compact notifications tray + CS2 wordmark webfont
        ================================================================== */
 
-    /* Notifications tray: much tighter — narrower, smaller type, slim rows. */
-    #navnotifications #notifications-container {
-        width: 232px;
-        padding: 2px 0;
-    }
 
-    #notifications-container li {
-        padding: 4px 10px;
-    }
 
-    /* Items were 47px tall for two small lines: the vanilla <p> padding
-       (3px 0), the <a> padding (0 0 4px) and the li padding all stacked.
-       Collapse the inner padding so rows are ~30px. */
-    #notifications-container li p {
-        padding: 0;
-        margin: 0;
-    }
 
-    #notifications-container li a,
-    #notifications-container .notification-link {
-        padding: 0 !important;
-        line-height: 1.3;
-    }
 
-    #notifications-container .dateTime {
-        display: block;
-        line-height: 1.2;
-    }
 
-    #notifications-container li a,
-    #notifications-container .notification-link {
-        font-size: 11px;
-        line-height: 1.35;
-        padding: 0;
-    }
 
-    #notifications-container .dateTime {
-        font-size: 9px;
-    }
 
-    #notifications-footer p {
-        padding: 4px 0;
-        font-size: 11px;
-    }
 
     /* Wordmark: Stratum2 (CS2's real face) if installed, else the
        Chakra Petch webfont the userscript loads, else system blacks. */
@@ -3607,21 +3451,86 @@ EOT;
         background-color: #2F2B25;
     }
 
-    /* The bell sits near the right edge, so a bell-centred panel can spill
-       off-screen on narrow windows. Anchor it to the right there instead. */
-    @media only screen and (max-width: 1000px) {
-        #navnotifications #notifications-container {
-            left: auto;
-            right: -6px;
-            transform: none;
-        }
 
-        #navnotifications #notifications-container::before,
-        #navnotifications #notifications-container::after {
-            left: auto;
-            right: 10px;
-            transform: none;
-        }
+    /* ---- Notifications panel (single source of truth) ----------------
+       Rebuilt from scratch: the previous rules had accumulated across
+       several rounds and fought each other. Width is the whole point —
+       it shrinks to its content instead of a fixed 234px slab. */
+    #navnotifications #notifications-container {
+        position: absolute;
+        top: calc(100% + 10px);
+        left: 50%;
+        right: auto;
+        transform: translateX(-50%);
+        width: max-content;
+        max-width: 240px;
+        padding: 0;
+        background: #131313;
+        border: 1px solid #303030;
+        box-shadow: 0 4px 14px rgba(0, 0, 0, 0.7);
+        overflow: visible;
+        z-index: 1001;
+    }
+
+    #notifications-body {
+        max-height: 300px;
+        overflow-y: auto;
+    }
+
+    #notifications-list li {
+        list-style: none;
+        padding: 5px 10px;
+        border-bottom: 1px solid var(--border-soft) !important;
+        opacity: 1;
+    }
+
+    #notifications-list li:last-child {
+        border-bottom: none !important;
+    }
+
+    #notifications-list li:hover {
+        background: var(--surface-hover);
+    }
+
+    #notifications-list li p {
+        padding: 0;
+        margin: 0;
+    }
+
+    #notifications-list li a {
+        display: block;
+        padding: 0 !important;
+        font-size: 11px;
+        line-height: 1.3;
+        color: var(--text);
+        white-space: nowrap;
+    }
+
+    #notifications-list li a:hover {
+        color: var(--text-strong);
+    }
+
+    #notifications-list .dateTime {
+        display: block;
+        font-size: 9px;
+        line-height: 1.2;
+        color: var(--text-dim);
+    }
+
+    #notifications-footer {
+        border-top: 1px solid var(--border);
+        background: #101010;
+        text-align: center;
+    }
+
+    #notifications-footer p {
+        padding: 4px 0;
+        margin: 0;
+        font-size: 11px;
+    }
+
+    #notifications-footer a {
+        color: var(--blue);
     }
 
     /* Injection point for the "Top-left logo" dropdown above. Inert
