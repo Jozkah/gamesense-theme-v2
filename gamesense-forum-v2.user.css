@@ -1,7 +1,7 @@
 /* ==UserStyle==
 @name           gamesense theme v2
 @namespace      github.com/Jozkah/gamesense-theme-v2
-@version        0.10.1
+@version        0.10.5
 @description    gamesense forum theme v2 — pixel-matched dark restyle of the gamesense.pub forum
 @author         Jozkah
 @homepageURL    https://github.com/Jozkah/gamesense-theme-v2
@@ -2217,7 +2217,11 @@ EOT;
     }
 
     #navnotifications #notifications-container::before {
-        border-bottom-color: #303030;
+        border-bottom-color: #3d3d3d;
+        border-left-width: 7px;
+        border-right-width: 7px;
+        border-bottom-width: 7px;
+        top: -7px;
     }
 
     /* Second caret layer fills the arrow body so it reads as a solid
@@ -2267,6 +2271,7 @@ EOT;
         border-top: 1px solid var(--border);
         background: #101010;
     }
+
 
     #notifications-footer p a {
         color: var(--blue);
@@ -3128,12 +3133,15 @@ EOT;
         top: 0;
         left: 0;
         right: 0;
-        height: 12px;
+        height: 16px;
         z-index: 1;
         pointer-events: none;
-        backdrop-filter: blur(0.5px);
-        -webkit-backdrop-filter: blur(0.5px);
-        background: linear-gradient(to bottom, rgba(10, 10, 10, 0.45), transparent);
+        backdrop-filter: blur(1.2px);
+        -webkit-backdrop-filter: blur(1.2px);
+        background: linear-gradient(to bottom,
+            rgba(23, 23, 23, 0.92) 0%,
+            rgba(23, 23, 23, 0.65) 45%,
+            rgba(23, 23, 23, 0) 100%);
     }
 
     /* ==================================================================
@@ -3348,12 +3356,31 @@ EOT;
 
     /* Notifications tray: much tighter — narrower, smaller type, slim rows. */
     #navnotifications #notifications-container {
-        width: 250px;
+        width: 232px;
         padding: 2px 0;
     }
 
     #notifications-container li {
-        padding: 5px 10px;
+        padding: 4px 10px;
+    }
+
+    /* Items were 47px tall for two small lines: the vanilla <p> padding
+       (3px 0), the <a> padding (0 0 4px) and the li padding all stacked.
+       Collapse the inner padding so rows are ~30px. */
+    #notifications-container li p {
+        padding: 0;
+        margin: 0;
+    }
+
+    #notifications-container li a,
+    #notifications-container .notification-link {
+        padding: 0 !important;
+        line-height: 1.3;
+    }
+
+    #notifications-container .dateTime {
+        display: block;
+        line-height: 1.2;
     }
 
     #notifications-container li a,
@@ -3551,6 +3578,23 @@ EOT;
 
     #shout p.rowHighlight:nth-child(even) {
         background-color: #2F2B25;
+    }
+
+    /* The bell sits near the right edge, so a bell-centred panel can spill
+       off-screen on narrow windows. Anchor it to the right there instead. */
+    @media only screen and (max-width: 1000px) {
+        #navnotifications #notifications-container {
+            left: auto;
+            right: -6px;
+            transform: none;
+        }
+
+        #navnotifications #notifications-container::before,
+        #navnotifications #notifications-container::after {
+            left: auto;
+            right: 10px;
+            transform: none;
+        }
     }
 
     /* Injection point for the "Top-left logo" dropdown above. Inert
