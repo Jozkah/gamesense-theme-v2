@@ -1,7 +1,7 @@
 /* ==UserStyle==
 @name           gamesense theme v2
 @namespace      github.com/Jozkah/gamesense-theme-v2
-@version        0.12.1
+@version        0.12.4
 @description    gamesense forum theme v2 — pixel-matched dark restyle of the gamesense.pub forum
 @author         Jozkah
 @homepageURL    https://github.com/Jozkah/gamesense-theme-v2
@@ -2193,6 +2193,14 @@ EOT;
         display: none;
     }
 
+    /* The legend sits 8px INTO its box (that's what puts the title on the
+       box's top edge). Index rows are 46px tall with vertically-centred
+       text so they clear it, but forum/topic rows and "Forum is empty."
+       start at the very top and got overlapped. Reserve that space. */
+    #brdmain .blocktable > .box {
+        padding-top: 8px;
+    }
+
     /* Legend titles that are SIBLINGS of their block instead of its first
        child (PM: <form><h2>Private messages</h2><div id="vf" class=
        "blocktable">). The block's section margin-top lands between the
@@ -3013,7 +3021,7 @@ EOT;
         position: absolute;
         top: 0;
         left: 0;
-        right: 0;
+        right: 8px;          /* clear the shoutbox scrollbar */
         height: 16px;
         z-index: 1;
         pointer-events: none;
@@ -3337,10 +3345,17 @@ EOT;
         margin-right: 14px;
     }
 
-    /* Sub-header: slimmer padding to match its ~32px band. */
+    /* Sub-header: the element starts 2px above its painted band (its top
+       2px sit under the divider lines), so symmetric padding rendered the
+       text ~2.4px high. Offset it so the text centres in the visible band. */
     #brdheader #brdwelcome {
-        padding-top: 8px;
-        padding-bottom: 8px;
+        /* margin-top would collapse through .box (this is its first
+           in-flow child - the logo/nav are floated), shifting the whole
+           header instead of the text. Asymmetric padding can't collapse:
+           it moves the text down 2.4px without changing the box height,
+           so the band stays put and the text lands on its centre. */
+        padding-top: 10.4px;
+        padding-bottom: 5.6px;
     }
 
     /* ==================================================================
