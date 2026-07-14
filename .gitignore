@@ -1,1 +1,6 @@
 _reference/
+*GameSense*.html
+*GameSense*_files/
+.playwright-mcp/
+render-*.png
+*.output
