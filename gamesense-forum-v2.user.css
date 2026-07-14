@@ -1,7 +1,7 @@
 /* ==UserStyle==
 @name           gamesense theme v2
 @namespace      github.com/Jozkah/gamesense-theme-v2
-@version        0.8.7
+@version        0.9.1
 @description    gamesense forum theme v2 — pixel-matched dark restyle of the gamesense.pub forum
 @author         Jozkah
 @homepageURL    https://github.com/Jozkah/gamesense-theme-v2
@@ -2181,6 +2181,97 @@
     #brdmain h2 + .blockform,
     #brdmain h2 + .block2col {
         margin-top: 0;
+    }
+
+    /* ---- Notifications dropdown finish -------------------------------
+       Centred on the bell (verified 0px offset). Caret was --border
+       (#282828) i.e. invisible on dark; make it read, and distinguish
+       new vs old notifications. */
+    #navnotifications #notifications-container {
+        padding: 0;
+        background: #131313;
+        border-color: #303030;
+    }
+
+    #navnotifications #notifications-container::before {
+        border-bottom-color: #303030;
+    }
+
+    /* Second caret layer fills the arrow body so it reads as a solid
+       pointer rather than a hollow outline. */
+    #navnotifications #notifications-container::after {
+        content: "";
+        position: absolute;
+        top: -5px;
+        left: 50%;
+        transform: translateX(-50%);
+        border-left: 5px solid transparent;
+        border-right: 5px solid transparent;
+        border-bottom: 5px solid #131313;
+    }
+
+    #notifications-body {
+        max-height: 320px;
+        overflow-y: auto;
+    }
+
+    #notifications-container li.new-notification {
+        font-weight: 700;
+        background: rgba(96, 160, 220, 0.07);
+        border-left: 2px solid var(--blue);
+    }
+
+    #notifications-container li.old-notification {
+        opacity: 1;                 /* vanilla dims to .75 — too washed */
+        border-left: 2px solid transparent;
+    }
+
+    #notifications-container li:hover {
+        background: var(--surface-hover);
+    }
+
+    #notifications-container li a:link,
+    #notifications-container li a:visited {
+        display: block;
+        color: var(--text);
+    }
+
+    #notifications-container li a:hover {
+        color: var(--text-strong);
+    }
+
+    #notifications-footer {
+        border-top: 1px solid var(--border);
+        background: #101010;
+    }
+
+    #notifications-footer p a {
+        color: var(--blue);
+    }
+
+    /* Pinned / sticky topics: subtle warm tint + gold left edge, reusing
+       the same warm palette as the shoutbox mention rows so it reads as
+       one design language. Matched two ways because FluxBB flags sticky
+       rows with .isticky while the gold star lives in .stickytext. */
+    .pun tbody tr.isticky,
+    .pun tbody tr:has(.stickytext) {
+        background-color: #211d15;
+    }
+
+    .pun tbody tr.isticky:hover,
+    .pun tbody tr:has(.stickytext):hover {
+        background-color: #2a2620;
+    }
+
+    .pun tbody tr.isticky td.tcl,
+    .pun tbody tr:has(.stickytext) td.tcl {
+        box-shadow: inset 3px 0 0 var(--gold);
+    }
+
+    /* The sticky star itself. */
+    .pun .stickytext {
+        color: var(--gold);
+        font-size: 1.1em;
     }
 
     /* Pagination bars ("Pages: 1" / "New dialogue" / Archive+Delete) carry
