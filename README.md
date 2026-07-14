@@ -26,7 +26,16 @@ Then load `https://gamesense.pub/forums/`.
 
 ## Customising
 
-Every colour and key size is a CSS variable in the `:root { … }` block at the top of the CSS — edit there and the change propagates everywhere.
+### Logo picker (no editing required)
+Stylus shows a **"Top-left logo"** dropdown in the style's settings — click the Stylus icon → the gear/config next to *gamesense theme v2*:
+
+| Option | Result |
+|--------|--------|
+| **gamesense — CS2 style** *(default)* | Full wordmark in CS2's Stratum2 (falls back to the embedded lookalike) |
+| **GS — compact badge** | Compact `G`+`S` badge, white/green |
+| **gamesense — original site font** | The forum's original logo: `Raleway, Verdana` 1.8em, `#eaeaea` + `#95b806` |
+
+Every colour and key size is also a CSS variable in the `:root { … }` block at the top of the CSS — edit there and the change propagates everywhere.
 
 ### Custom GAMESENSE logo (CS2 font)
 The navbar shows the text wordmark (`game` + green `sense`) by default. To use the uploaded image logo instead:
