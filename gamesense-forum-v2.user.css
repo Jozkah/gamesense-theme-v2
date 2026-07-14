@@ -1,7 +1,7 @@
 /* ==UserStyle==
 @name           gamesense theme v2
 @namespace      github.com/Jozkah/gamesense-theme-v2
-@version        0.5.0
+@version        0.5.1
 @description    gamesense forum theme v2 — pixel-matched dark restyle of the gamesense.pub forum
 @author         Jozkah
 @homepageURL    https://github.com/Jozkah/gamesense-theme-v2
@@ -46,10 +46,9 @@
         --wordmark-size: 22px;     /* navbar "gamesense" size             */
         --header-offset: 116px;    /* space reserved for the fixed header */
 
-        /* Fonts — crisp modern sans (Segoe UI on Windows) instead of the
-           chunky Verdana default, matching the reference render. */
-        --font-body:    "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-        --font-display: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+        /* Fonts — classic Verdana forum face per the target screenshots. */
+        --font-body:    Verdana, Geneva, Tahoma, "Segoe UI", sans-serif;
+        --font-display: Verdana, Geneva, Tahoma, "Segoe UI", sans-serif;
 
         /* Glow accents (green brand glow + gradient-line bloom). */
         --glow-green: 0 0 8px rgba(149, 184, 6, 0.55);
@@ -3012,5 +3011,64 @@
             font-size: 22px;
             color: var(--green);
         }
+    }
+
+    /* ==================================================================
+       v0.5.1 — full-bleed sub-header, chain icon, flush ChatBot bar
+       ================================================================== */
+
+    /* The sub-header band must run edge to edge. Its background is painted
+       on the full-width #brdheader itself (banded gradient: navbar colour,
+       1px black line, then the darker sub-header tone), because
+       #brdwelcome is trapped inside the 1070px box. */
+    #brdheader {
+        background: linear-gradient(
+            to bottom,
+            var(--header-bg) 0,
+            var(--header-bg) 60px,
+            #000 60px,
+            #000 61px,
+            #101010 61px,
+            #101010 100%);
+    }
+
+    #brdheader #brdwelcome {
+        background: transparent;
+        border-top: none;
+        border-bottom: none;
+    }
+
+    /* Redirect-forum icon: chain link (matches the target), not the
+       external-link box. */
+    .pun .iredirect .tcl h3 a::after {
+        content: "\f0c1";
+    }
+
+    /* ChatBot bar: flush against the row's left edge, taller. */
+    #shout p:has(> a.chatBot) {
+        padding-left: 2px;
+    }
+
+    #shout p:has(> a.chatBot)::before {
+        width: 3px;
+        height: 13px;
+        margin-right: 6px;
+        vertical-align: -2px;
+    }
+
+    /* "Logged in as" tooltip, matched to the target: sits BESIDE the icon
+       (right, vertically centred), lighter box with a visible border,
+       Verdana 9. */
+    .gs-tooltip {
+        top: 50%;
+        right: auto;
+        left: calc(100% + 9px);
+        transform: translateY(-50%);
+        background: #242424;
+        border: 1px solid #3c3c3c;
+        color: #cfcfcf;
+        font: 9px Verdana, Geneva, sans-serif;
+        padding: 4px 8px;
+        box-shadow: none;
     }
 }
