@@ -1,7 +1,7 @@
 /* ==UserStyle==
 @name           gamesense theme v2
 @namespace      github.com/Jozkah/gamesense-theme-v2
-@version        0.10.0
+@version        0.10.1
 @description    gamesense forum theme v2 — pixel-matched dark restyle of the gamesense.pub forum
 @author         Jozkah
 @homepageURL    https://github.com/Jozkah/gamesense-theme-v2
@@ -23,7 +23,8 @@ EOT;
 #brdtitle h1 a span::before { content: "S" !important; font-size: 21px !important; color: #95b806 !important; }
 EOT;
   original "gamesense - original site font" <<<EOT
-#brdtitle h1 { font-family: Raleway, Verdana !important; font-size: 1.8em !important; font-weight: 400 !important; font-style: normal !important; letter-spacing: normal !important; text-transform: none !important; }
+#brdtitle h1 { font-family: Raleway, Verdana !important; font-size: 1.8em !important; font-weight: 400 !important; font-style: normal !important; letter-spacing: normal !important; text-transform: none !important; text-shadow: none !important; }
+#brdtitle h1 a, #brdtitle h1 a span { text-shadow: none !important; }
 #brdtitle h1 a { color: #eaeaea !important; font-size: inherit !important; }
 #brdtitle h1 a span { color: #95b806 !important; font-size: inherit !important; }
 #brdtitle h1 a::before, #brdtitle h1 a span::before { content: none !important; }
