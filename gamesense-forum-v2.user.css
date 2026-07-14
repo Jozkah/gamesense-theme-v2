@@ -1,7 +1,7 @@
 /* ==UserStyle==
 @name           gamesense theme v2
 @namespace      github.com/Jozkah/gamesense-theme-v2
-@version        0.13.2
+@version        0.13.3
 @description    gamesense forum theme v2 — pixel-matched dark restyle of the gamesense.pub forum
 @author         Jozkah
 @homepageURL    https://github.com/Jozkah/gamesense-theme-v2
@@ -1241,7 +1241,7 @@ EOT;
         top: 0;
         left: 0;
         width: 100%;
-        height: 2px;
+        height: 1px;
         z-index: 1000;
         background: linear-gradient(to right, #37B1DA 0%, #CC46CD 50%, #CCE335 100%);
     }
@@ -3566,10 +3566,10 @@ EOT;
     body::after {
         content: "";
         position: fixed;
-        top: 2px;
+        top: 1px;
         left: 0;
         width: 100%;
-        height: 2px;
+        height: 1px;
         z-index: 1000;
         opacity: 0.77;
         background: linear-gradient(to right, #37B1DA 0%, #CC46CD 50%, #CCE335 100%);
@@ -3586,7 +3586,7 @@ EOT;
        1px line under the sub-header in the same colour as the other
        outlines (was border-bottom + box-shadow = 2px of pure black). */
     #brdheader {
-        top: 5px;
+        top: 3px;
         border-bottom: none;
         box-shadow: 0 1px 0 0 var(--outline-dark);
     }
