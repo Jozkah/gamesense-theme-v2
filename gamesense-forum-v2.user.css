@@ -1,7 +1,7 @@
 /* ==UserStyle==
 @name           gamesense theme v2
 @namespace      github.com/Jozkah/gamesense-theme-v2
-@version        0.8.6
+@version        0.8.7
 @description    gamesense forum theme v2 — pixel-matched dark restyle of the gamesense.pub forum
 @author         Jozkah
 @homepageURL    https://github.com/Jozkah/gamesense-theme-v2
@@ -2181,6 +2181,35 @@
     #brdmain h2 + .blockform,
     #brdmain h2 + .block2col {
         margin-top: 0;
+    }
+
+    /* Pagination bars ("Pages: 1" / "New dialogue" / Archive+Delete) carry
+       no margin of their own, so they sit flush against the legend above
+       and the table below. Give them their own breathing room. */
+    #brdmain .pagepost {
+        padding: 7px 0;
+    }
+
+    /* Submit buttons were 46x16px at 10px — unreadably small. */
+    .pun input[type="submit"],
+    .pun input[type="button"],
+    .pun input[type="reset"],
+    .pun a.button {
+        font-size: 11px;
+        padding: 5px 12px;
+        cursor: pointer;
+        background-color: var(--surface-hover);
+        border: 1px solid var(--border);
+        color: var(--text);
+    }
+
+    .pun input[type="submit"]:hover,
+    .pun input[type="button"]:hover,
+    .pun input[type="reset"]:hover,
+    .pun a.button:hover {
+        background-color: #2a2a2a;
+        border-color: #3a3a3a;
+        color: var(--text-strong);
     }
 
     /* PM rows title with <strong><a> where the index uses <h3><a>, so the
