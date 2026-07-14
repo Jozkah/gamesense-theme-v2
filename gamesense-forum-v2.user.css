@@ -1,7 +1,7 @@
 /* ==UserStyle==
 @name           gamesense theme v2
 @namespace      github.com/Jozkah/gamesense-theme-v2
-@version        0.2.0
+@version        0.3.0
 @description    gamesense forum theme v2 — pixel-matched dark restyle of the gamesense.pub forum
 @author         Jozkah
 @homepageURL    https://github.com/Jozkah/gamesense-theme-v2
@@ -2387,5 +2387,64 @@
         border: none;
         background: transparent;
         font-size: 1.1em;
+    }
+
+    /* ==================================================================
+       v0.3.0 — pixel pass against the target screenshots
+       ================================================================== */
+
+    /* Shoutbox rows are uniform — no even/odd alternation; only hover
+       lightens a row. */
+    #shout .rowEven,
+    #shout .rowOdd {
+        background-color: transparent;
+        padding: 3px 8px;
+    }
+
+    #shout .rowEven:hover,
+    #shout .rowOdd:hover {
+        background-color: var(--surface-hover);
+    }
+
+    /* Forum tables: horizontal row separators only — kill the vertical
+       divider between the forum column and the last-post column. */
+    .pun tbody td,
+    .pun tbody th {
+        border-style: solid none none none;
+    }
+
+    /* Nav links: smaller and plainer, per the target. */
+    #brdmenu a:link,
+    #brdmenu a:visited {
+        font-size: 12px;
+        font-weight: 400;
+        color: #a8a8a8;
+    }
+
+    /* Wordmark: CS2-logo style (Stratum2-like) — uppercase, black weight,
+       italic lean, tight tracking. GAME white / SENSE green. For the exact
+       letterforms, embed the logo image via the swap block near the top. */
+    #brdtitle h1 {
+        font-family: "Stratum2 Black", "Stratum2", "Segoe UI Black",
+                     "Arial Black", var(--font-display);
+        font-weight: 900;
+        font-style: italic;
+        text-transform: uppercase;
+        letter-spacing: -0.5px;
+        font-size: 19px;
+        transform: skew(-6deg);
+    }
+
+    #brdtitle h1 a span {
+        text-shadow: none;   /* banner logo is flat — no glow */
+    }
+
+    /* Volume icon on the white input reads dark gray. */
+    #shoutvol {
+        color: #555;
+    }
+
+    #shoutvol:hover {
+        color: #111;
     }
 }

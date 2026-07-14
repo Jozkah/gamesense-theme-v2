@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         gamesense theme v2 — forum script
 // @namespace    https://github.com/Jozkah/gamesense-theme-v2
-// @version      0.2.0
+// @version      0.3.0
 // @description  Companion script for gamesense theme v2: wordmark split, header offset sync, privacy masking.
 // @author       Jozkah
 // @match        https://gamesense.pub/forums/*
@@ -129,10 +129,60 @@
         }
     }
 
+    /* ------------------------------------------------------------------
+       6. Section renames — the theme shows full game names.
+       ------------------------------------------------------------------ */
+    var SECTION_NAMES = {
+        'CS:GO': 'Counter-Strike: Global Offensive',
+        'CS2': 'Counter-Strike 2'
+    };
+
+    function renameSections() {
+        document.querySelectorAll('#brdmain .blocktable h2 span').forEach(function (span) {
+            var mapped = SECTION_NAMES[span.textContent.trim()];
+            if (mapped) span.textContent = mapped;
+        });
+    }
+
+    /* ------------------------------------------------------------------
+       7. Shoutbox timestamps in 12-hour format: "23:55:43" -> "11:55:43 PM".
+          The shoutbox re-renders itself over its socket, so a
+          MutationObserver keeps new rows converted. Idempotent (skips
+          spans already carrying AM/PM).
+       ------------------------------------------------------------------ */
+    function to12Hour(text) {
+        var m = /^(\d{1,2}):(\d{2}):(\d{2})\s*$/.exec(text.trim());
+        if (!m) return null;
+        var h = parseInt(m[1], 10);
+        var suffix = h >= 12 ? 'PM' : 'AM';
+        h = h % 12;
+        if (h === 0) h = 12;
+        return h + ':' + m[2] + ':' + m[3] + ' ' + suffix;
+    }
+
+    function convertShoutTimes(root) {
+        (root || document).querySelectorAll('#shout .dateTime').forEach(function (span) {
+            if (span.textContent.indexOf('M') !== -1) return; // already AM/PM
+            var t = to12Hour(span.textContent);
+            if (t) span.textContent = t;
+        });
+    }
+
+    function watchShoutbox() {
+        var shout = document.getElementById('shout');
+        if (!shout) return;
+        convertShoutTimes(shout);
+        new MutationObserver(function () {
+            convertShoutTimes(shout);
+        }).observe(shout, { childList: true, subtree: true });
+    }
+
     function run() {
         splitWordmark();
         buildHeaderIcons();
         renameShoutbox();
+        renameSections();
+        watchShoutbox();
         syncHeaderOffset();
         maskSensitive();
     }
