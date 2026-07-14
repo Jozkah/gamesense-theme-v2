@@ -1,7 +1,7 @@
 /* ==UserStyle==
 @name           gamesense theme v2
 @namespace      github.com/Jozkah/gamesense-theme-v2
-@version        0.7.4
+@version        0.7.5
 @description    gamesense forum theme v2 — pixel-matched dark restyle of the gamesense.pub forum
 @author         Jozkah
 @homepageURL    https://github.com/Jozkah/gamesense-theme-v2
@@ -20,12 +20,12 @@
         /* Panels are SOLID — the texture lives only on the page behind
            them (translucent panels made the stripes bleed through and
            shifted every colour off-target). */
-        --surface:       #131313;  /* forum rows, panels                  */
-        --surface-alt:   #161616;  /* alternate surfaces                  */
-        --surface-hover: #1b1b1b;  /* row hover                           */
+        --surface:       #171717;  /* forum rows, panels                  */
+        --surface-alt:   #1a1a1a;  /* alternate surfaces                  */
+        --surface-hover: #1f1f1f;  /* row hover                           */
         --header-bg:     #191919;  /* navbar (lightest layer)             */
         --panel-title:   #101010;  /* category title bars                 */
-        --shout-bg:      #131313;  /* shoutbox body                       */
+        --shout-bg:      #171717;  /* shoutbox body                       */
 
         --border:        #282828;  /* default hairline dividers           */
         --border-soft:   #1f1f1f;  /* softer inner dividers               */
@@ -3324,6 +3324,15 @@
     #brdmain #brdstats .box,
     #brdmain #brdfooter .box {
         border-top: 1px solid #282828;
+    }
+
+    /* Forum-row separation: a dark 2px band between rows (the target
+       separates rows with dark gaps, not light hairlines). The vertical
+       divider before the last-post column stays #282828. */
+    .pun tbody td,
+    .pun tbody th {
+        border-top-width: 2px;
+        border-top-color: #0f0f0f;
     }
 
     /* Mention rows (sb.js replaces the parity class with rowHighlight) —
