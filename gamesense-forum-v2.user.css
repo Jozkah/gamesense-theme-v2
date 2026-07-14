@@ -1,7 +1,7 @@
 /* ==UserStyle==
 @name           gamesense theme v2
 @namespace      github.com/Jozkah/gamesense-theme-v2
-@version        0.5.2
+@version        0.6.0
 @description    gamesense forum theme v2 — pixel-matched dark restyle of the gamesense.pub forum
 @author         Jozkah
 @homepageURL    https://github.com/Jozkah/gamesense-theme-v2
@@ -3071,5 +3071,94 @@
         font: 9px Verdana, Geneva, sans-serif;
         padding: 4px 8px;
         box-shadow: none;
+    }
+
+    /* ==================================================================
+       v0.5.3 — spacing pass + blue bell badge
+       ================================================================== */
+
+    /* Nav item rhythm (target spacing). */
+    #brdheader #brdmenu li {
+        margin-right: 22px;
+    }
+
+    /* Icon cluster: slightly larger, brighter, target-spaced. */
+    #gs-header-icons {
+        gap: 12px;
+    }
+
+    #gs-header-icons .fa {
+        font-size: 17px;
+    }
+
+    #gs-header-icons a,
+    #gs-header-icons .fake-link {
+        color: #b5b5b5;
+    }
+
+    /* Section breathing room. */
+    #brdmain .blocktable,
+    #brdmain .blockform,
+    #brdmain .block {
+        margin-top: 22px;
+    }
+
+    /* Bell badge: blue "!" when tagged in a post (vanilla adds
+       .badge-unread + a count; restyled to the target's blue mark). */
+    #notifications-badge.badge-unread:after,
+    .badge-unread:after {
+        content: "!";
+        background: transparent;
+        border: none;
+        border-radius: 0;
+        color: #3fa9f5;
+        font-weight: 700;
+        font-size: 12px;
+        font-family: var(--font-body);
+        text-shadow: 0 0 4px rgba(63, 169, 245, 0.45);
+        top: -7px;
+        right: -7px;
+        left: auto;
+        width: auto;
+        height: auto;
+        line-height: 1;
+        text-align: center;
+    }
+
+    /* ==================================================================
+       v0.6.0 — compact notifications tray + CS2 wordmark webfont
+       ================================================================== */
+
+    /* Notifications tray: much tighter — narrower, smaller type, slim rows. */
+    #navnotifications #notifications-container {
+        width: 250px;
+        padding: 2px 0;
+    }
+
+    #notifications-container li {
+        padding: 5px 10px;
+    }
+
+    #notifications-container li a,
+    #notifications-container .notification-link {
+        font-size: 11px;
+        line-height: 1.35;
+        padding: 0;
+    }
+
+    #notifications-container .dateTime {
+        font-size: 9px;
+    }
+
+    #notifications-footer p {
+        padding: 4px 0;
+        font-size: 11px;
+    }
+
+    /* Wordmark: Stratum2 (CS2's real face) if installed, else the
+       Chakra Petch webfont the userscript loads, else system blacks. */
+    #brdtitle h1 {
+        font-family: "Stratum2 Black", "Stratum2", "Chakra Petch",
+                     "Segoe UI Black", "Arial Black", var(--font-display) !important;
     }
 }

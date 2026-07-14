@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         gamesense theme v2 — forum script
 // @namespace    https://github.com/Jozkah/gamesense-theme-v2
-// @version      0.5.0
+// @version      0.6.0
 // @description  Companion script for gamesense theme v2: wordmark split, header offset sync, privacy masking.
 // @author       Jozkah
 // @match        https://gamesense.pub/forums/*
@@ -205,6 +205,8 @@
             // sb.js can rebuild the form (e.g. on reconnect) and wipe the
             // picker — buildEmojiPicker is guarded, so re-running is cheap.
             buildEmojiPicker();
+            // Connection can drop mid-session — swap in the error overlay.
+            displayShoutError();
         }).observe(shout, { childList: true, subtree: true });
     }
 
@@ -275,7 +277,178 @@
         });
     }
 
+    /* ------------------------------------------------------------------
+       9. CS2-style wordmark font — Stratum2 (CS2's face) is proprietary,
+          so load the closest free face (Chakra Petch bold-italic) as a
+          fallback webfont. If the request is blocked, the CSS stack
+          degrades to Segoe UI Black / Arial Black gracefully.
+       ------------------------------------------------------------------ */
+    function loadWordmarkFont() {
+        if (document.getElementById('gs-wordmark-font')) return;
+        var link = document.createElement('link');
+        link.id = 'gs-wordmark-font';
+        link.rel = 'stylesheet';
+        link.href = 'https://fonts.googleapis.com/css2?family=Chakra+Petch:ital,wght@1,700&display=swap';
+        document.head.appendChild(link);
+    }
+
+    /* ------------------------------------------------------------------
+       10. Shoutbox "connection closed" overlay (ported from v1) — replace
+           the broken form state with a centred warning panel.
+       ------------------------------------------------------------------ */
+    function displayShoutError() {
+        var shout = document.getElementById('shout');
+        if (!shout || shout.dataset.gsErrorShown) return false;
+
+        var label = shout.querySelector('form label span');
+        if (!label || !/connection is[\s\S]*closed/i.test(label.innerHTML)) return false;
+
+        shout.dataset.gsErrorShown = '1';
+        shout.style.display = 'flex';
+        shout.style.alignItems = 'center';
+        shout.style.justifyContent = 'center';
+        shout.innerHTML = '';
+
+        var overlay = document.createElement('div');
+        overlay.style.cssText =
+            'display:flex;flex-direction:column;align-items:center;justify-content:center;' +
+            'text-align:center;width:100%;height:200px;color:#ccc;overflow:hidden;';
+        overlay.innerHTML =
+            '<img src="/static/img/warning.svg" alt="Warning" width="60" height="60">' +
+            '<span style="padding:10px;font-size:1em;">Your connection is ' +
+            '<strong style="color:#fff;">closed</strong>, please ' +
+            '<strong style="color:#fff;">refresh</strong></span>';
+        shout.appendChild(overlay);
+        return true;
+    }
+
+    /* ------------------------------------------------------------------
+       11. Persistent payment history (ported from v1) — the server only
+           shows the last few charges; scrape each visit, merge into
+           localStorage, re-render the accumulated list.
+       ------------------------------------------------------------------ */
+    var PAYMENT_STORAGE_KEY = 'gs_payment_history_v1';
+    var MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+
+    function ordinal(n) {
+        var s = ['th', 'st', 'nd', 'rd'];
+        var v = n % 100;
+        return n + (s[(v - 20) % 10] || s[v] || s[0]);
+    }
+
+    function normalizePaymentDate(text) {
+        var trimmed = text.trim();
+        var m = /^(Today|Yesterday)\s+(.+)$/.exec(trimmed);
+        if (!m) return trimmed;
+        var d = new Date();
+        if (m[1] === 'Yesterday') d.setDate(d.getDate() - 1);
+        return ordinal(d.getDate()) + ' ' + MONTHS[d.getMonth()] + ' ' + d.getFullYear() + ' ' + m[2];
+    }
+
+    function paymentRowKey(row) {
+        return [row.date, row.type, row.amount, row.for, row.status].join('||');
+    }
+
+    function loadPaymentHistory() {
+        try {
+            var parsed = JSON.parse(localStorage.getItem(PAYMENT_STORAGE_KEY) || '[]');
+            return Array.isArray(parsed) ? parsed : [];
+        } catch (e) {
+            return [];
+        }
+    }
+
+    function savePaymentHistory(rows) {
+        try {
+            localStorage.setItem(PAYMENT_STORAGE_KEY, JSON.stringify(rows));
+        } catch (e) { /* quota / disabled storage — ignore */ }
+    }
+
+    function renderPaymentHistory() {
+        if (!window.location.pathname.endsWith('/payment.php')) return;
+
+        var table = null;
+        document.querySelectorAll('legend').forEach(function (legend) {
+            if (!table && legend.textContent.trim() === 'Recent payment activity') {
+                table = legend.closest('fieldset').querySelector('table');
+            }
+        });
+        if (!table) return;
+
+        var tbody = table.querySelector('tbody') || table;
+        var allRows = Array.prototype.slice.call(tbody.querySelectorAll('tr'));
+        var headerRow = allRows.find(function (tr) { return tr.querySelector('th'); });
+
+        var scraped = [];
+        allRows.forEach(function (tr) {
+            if (tr.querySelector('th')) return;
+            var cells = tr.querySelectorAll('td');
+            if (cells.length < 5) return;
+            scraped.push({
+                date: normalizePaymentDate(cells[0].textContent),
+                type: cells[1].textContent.trim(),
+                amount: cells[2].textContent.trim(),
+                for: cells[3].textContent.trim(),
+                status: cells[4].textContent.trim()
+            });
+        });
+
+        var stored = loadPaymentHistory();
+        var storedKeys = new Set(stored.map(paymentRowKey));
+        var fresh = scraped.filter(function (r) { return !storedKeys.has(paymentRowKey(r)); });
+        var merged = fresh.concat(stored);
+        savePaymentHistory(merged);
+
+        Array.prototype.forEach.call(tbody.querySelectorAll('tr'), function (tr) {
+            if (tr !== headerRow) tr.remove();
+        });
+
+        var frag = document.createDocumentFragment();
+        merged.forEach(function (row) {
+            var tr = document.createElement('tr');
+            [row.date, row.type, row.amount, row.for, row.status].forEach(function (value) {
+                var td = document.createElement('td');
+                td.textContent = value;
+                tr.appendChild(td);
+            });
+            if (/^fail/i.test(row.status)) tr.style.opacity = '0.55';
+            frag.appendChild(tr);
+        });
+        tbody.appendChild(frag);
+
+        var fieldset = table.closest('fieldset');
+        if (fieldset && !fieldset.querySelector('.gs-payment-history-bar')) {
+            var bar = document.createElement('p');
+            bar.className = 'gs-payment-history-bar';
+            bar.style.cssText = 'display:flex;justify-content:space-between;align-items:center;';
+
+            var count = document.createElement('span');
+            count.textContent = 'Tracked locally: ' + merged.length + ' payment' + (merged.length === 1 ? '' : 's');
+
+            var clear = document.createElement('a');
+            clear.href = '#';
+            clear.textContent = 'Clear history';
+            clear.addEventListener('click', function (ev) {
+                ev.preventDefault();
+                if (confirm('Clear the locally-stored payment history? This only affects your browser.')) {
+                    savePaymentHistory([]);
+                    window.location.reload();
+                }
+            });
+
+            bar.appendChild(count);
+            bar.appendChild(clear);
+            table.parentNode.insertBefore(bar, table);
+        } else if (fieldset) {
+            var countEl = fieldset.querySelector('.gs-payment-history-bar span');
+            if (countEl) {
+                countEl.textContent = 'Tracked locally: ' + merged.length + ' payment' + (merged.length === 1 ? '' : 's');
+            }
+        }
+    }
+
     function run() {
+        loadWordmarkFont();
         splitWordmark();
         buildHeaderIcons();
         renameShoutbox();
@@ -283,6 +456,8 @@
         clearRedirectPlaceholders();
         watchShoutbox();
         buildEmojiPicker();
+        displayShoutError();
+        renderPaymentHistory();
         syncHeaderOffset();
         maskSensitive();
     }
