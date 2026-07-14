@@ -1,7 +1,7 @@
 /* ==UserStyle==
 @name           gamesense theme v2
 @namespace      github.com/Jozkah/gamesense-theme-v2
-@version        0.13.1
+@version        0.13.2
 @description    gamesense forum theme v2 — pixel-matched dark restyle of the gamesense.pub forum
 @author         Jozkah
 @homepageURL    https://github.com/Jozkah/gamesense-theme-v2
@@ -3562,16 +3562,33 @@ EOT;
                     0 1px 4px rgba(0, 0, 0, 0.45);
     }
 
-    /* Black line directly under the RGB bar. The bar is body::before
-       (z-index 1000), so its shadow paints over the navbar beneath it. */
-    body::before {
-        box-shadow: 0 1px 0 0 #000;
+    /* Second gradient layer under the first, at 77% opacity. */
+    body::after {
+        content: "";
+        position: fixed;
+        top: 2px;
+        left: 0;
+        width: 100%;
+        height: 2px;
+        z-index: 1000;
+        opacity: 0.77;
+        background: linear-gradient(to right, #37B1DA 0%, #CC46CD 50%, #CCE335 100%);
+        box-shadow: 0 1px 0 0 var(--outline-dark);  /* the single 1px line */
+        pointer-events: none;
     }
 
-    /* Black line under the sub-header (the "Premium ..." bar). */
+    /* The line belongs to the 2nd layer now, so the 1st carries none. */
+    body::before {
+        box-shadow: none;
+    }
+
+    /* Header clears the 2px + 2px bar and its 1px line, and carries ONE
+       1px line under the sub-header in the same colour as the other
+       outlines (was border-bottom + box-shadow = 2px of pure black). */
     #brdheader {
-        border-bottom: 1px solid #000;
-        box-shadow: 0 1px 0 0 #000;
+        top: 5px;
+        border-bottom: none;
+        box-shadow: 0 1px 0 0 var(--outline-dark);
     }
 
     /* Injection point for the "Top-left logo" dropdown above. Inert
