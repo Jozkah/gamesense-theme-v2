@@ -1,7 +1,7 @@
 /* ==UserStyle==
 @name           gamesense theme v2
 @namespace      github.com/Jozkah/gamesense-theme-v2
-@version        0.6.5
+@version        0.7.0
 @description    gamesense forum theme v2 — pixel-matched dark restyle of the gamesense.pub forum
 @author         Jozkah
 @homepageURL    https://github.com/Jozkah/gamesense-theme-v2
@@ -16,22 +16,22 @@
        and the change propagates everywhere it is used.
        ===================================================================== */
     :root {
-        --bg:            #151515;  /* page background (under the texture) */
+        --bg:            #0e0e0e;  /* page background (under the texture) */
         /* Panels are SOLID — the texture lives only on the page behind
            them (translucent panels made the stripes bleed through and
            shifted every colour off-target). */
-        --surface:       #232323;  /* forum rows, panels                  */
-        --surface-alt:   #272727;  /* alternate surfaces                  */
-        --surface-hover: #2c2c2c;  /* row hover                           */
-        --header-bg:     #1f1f1f;  /* navbar (lightest layer)             */
-        --panel-title:   #1a1a1a;  /* category title bars                 */
-        --shout-bg:      #202020;  /* shoutbox body                       */
+        --surface:       #131313;  /* forum rows, panels                  */
+        --surface-alt:   #161616;  /* alternate surfaces                  */
+        --surface-hover: #1b1b1b;  /* row hover                           */
+        --header-bg:     #191919;  /* navbar (lightest layer)             */
+        --panel-title:   #101010;  /* category title bars                 */
+        --shout-bg:      #131313;  /* shoutbox body                       */
 
-        --border:        #2e2e2e;  /* default hairline dividers           */
-        --border-soft:   #262626;  /* softer inner dividers               */
+        --border:        #282828;  /* default hairline dividers           */
+        --border-soft:   #1f1f1f;  /* softer inner dividers               */
 
-        --text:          #c8c8c8;  /* body text                           */
-        --text-strong:   #eaeaea;  /* forum names, wordmark "game"        */
+        --text:          #a8a8a8;  /* body text                           */
+        --text-strong:   #b7b7b7;  /* forum names, wordmark "game"        */
         --text-dim:      #808080;  /* descriptions, dates, "by user"      */
         --text-faint:    #6a6a6a;  /* least-important meta                */
 
@@ -3204,8 +3204,8 @@
             var(--header-bg) 52px,
             #000 52px,
             #000 53px,
-            #1a1a1a 53px,
-            #1a1a1a 100%);
+            #0e0e0e 53px,
+            #0e0e0e 100%);
     }
 
     /* Nav links: tighter rhythm, smaller type (measured ~14px gaps, 11px).
@@ -3263,5 +3263,54 @@
     #brdmain .blockform h2::after,
     #brdmain .block h2::after {
         background: #3a3a3a;
+    }
+    /* ==================================================================
+       v0.7.0 — exact spec: #191919 / #0E0E0E / #131313 / #282828 /
+       #B7B7B7; seam + outline fixes
+       ================================================================== */
+
+    /* The header box must not cast the panel drop shadow — this painted
+       the vertical "bar" at the content edge inside the header. */
+    #brdheader .box {
+        box-shadow: none;
+        border: none;
+    }
+
+    /* Sub-header paints ONLY via the full-bleed header band — its own
+       background overlaid the divider line inside the box width, which is
+       why the outline changed colour at the box edge. */
+    #brdheader #brdwelcome {
+        background: transparent;
+        border: none;
+    }
+
+    /* Outlines: spec #282828 everywhere. */
+    .pun .box {
+        border-color: #282828;
+    }
+
+    #brdmain .blocktable h2::before,
+    #brdmain .blockform h2::before,
+    #brdmain .block h2::before,
+    #brdmain .blocktable h2::after,
+    #brdmain .blockform h2::after,
+    #brdmain .block h2::after {
+        background: #282828;
+    }
+
+    /* Text shadow: softer. */
+    .pun,
+    #brdheader {
+        text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.35);
+    }
+
+    /* The wordmark stays bright — spec dimmed general white text only. */
+    #brdtitle h1 a {
+        color: #e8e8e8;
+    }
+
+    /* Sub-header bold product name follows the white-text spec. */
+    #brdheader #brdwelcome .conl li span strong {
+        color: #b7b7b7;
     }
 }
