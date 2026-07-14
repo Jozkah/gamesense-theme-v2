@@ -1,7 +1,7 @@
 /* ==UserStyle==
 @name           gamesense theme v2
 @namespace      github.com/Jozkah/gamesense-theme-v2
-@version        0.7.2
+@version        0.7.3
 @description    gamesense forum theme v2 — pixel-matched dark restyle of the gamesense.pub forum
 @author         Jozkah
 @homepageURL    https://github.com/Jozkah/gamesense-theme-v2
@@ -3317,15 +3317,19 @@
     /* Blocks whose legend titles are hidden off-screen (#brdstats
        "Registered users online", #brdfooter) have no legend line to act
        as their top edge — give them their border-top back. */
-    #brdstats .box,
-    #brdfooter .box {
+    /* (two-id selector: must outrank #brdmain .block .box border-top:none) */
+    #brdmain #brdstats .box,
+    #brdmain #brdfooter .box {
         border-top: 1px solid #282828;
     }
 
     /* Mention rows (sb.js replaces the parity class with rowHighlight) —
-       restore alternation via sibling parity: #2A2620 / #2F2B25. */
+       restore alternation via sibling parity: #2A2620 / #2F2B25.
+       Padding matches normal rows (vanilla rowHighlight uses 3px left,
+       which shoved mention usernames further back). */
     #shout p.rowHighlight {
         background-color: #2A2620;
+        padding: 3px 8px;
     }
 
     #shout p.rowHighlight:nth-child(even) {
