@@ -1,7 +1,7 @@
 /* ==UserStyle==
 @name           gamesense theme v2
 @namespace      github.com/Jozkah/gamesense-theme-v2
-@version        0.8.1
+@version        0.8.2
 @description    gamesense forum theme v2 — pixel-matched dark restyle of the gamesense.pub forum
 @author         Jozkah
 @homepageURL    https://github.com/Jozkah/gamesense-theme-v2
@@ -939,7 +939,7 @@
         padding: 3px;
         margin-bottom: 3px;
         line-height: 1.25em;
-        background-color: #303030
+        background-color: var(--surface-hover)
     }
 
     .pun .blockpost h2 a:link,
@@ -1086,7 +1086,7 @@
     .pun .quotebox cite {
         display: block;
         padding: .5em 0 .5em .5em;
-        background: #1b1a1a;
+        background: var(--surface);
     }
 
     .pun .quotebox blockquote {
@@ -1368,12 +1368,12 @@
     .pun .deletemsg,
     .pun .postfootright,
     .pun .postright {
-        background-color: #232323;
+        background-color: var(--surface-alt);
     }
 
     .pun .postfootright,
     .pun .postright {
-        border-left-color: hsla(0, 0%, 10%, 1);
+        border-left-color: var(--surface);
     }
 
     .pun .blockpost label,
@@ -1439,10 +1439,10 @@
     .pun .forminfo,
     .pun .quotebox {
         border: none;
-        border-right: 1px solid #232323;
-        border-bottom: 1px solid #232323;
-        border-left: 2px solid #616161;
-        background: hsl(0, 0%, 18%);
+        border-right: 1px solid var(--border);
+        border-bottom: 1px solid var(--border);
+        border-left: 2px solid #4a4a4a;
+        background: var(--surface-hover);
         width: 95%;
     }
 
