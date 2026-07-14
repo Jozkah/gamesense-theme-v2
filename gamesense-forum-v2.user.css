@@ -1,7 +1,7 @@
 /* ==UserStyle==
 @name           gamesense theme v2
 @namespace      github.com/Jozkah/gamesense-theme-v2
-@version        0.12.5
+@version        0.13.0
 @description    gamesense forum theme v2 — pixel-matched dark restyle of the gamesense.pub forum
 @author         Jozkah
 @homepageURL    https://github.com/Jozkah/gamesense-theme-v2
@@ -51,6 +51,7 @@ EOT;
         --shout-bg:      #171717;  /* shoutbox body                       */
 
         --border:        #282828;  /* default hairline dividers           */
+        --outline-dark:  #0b0b0b;  /* 2nd outline: texture's dark stripe  */
         --border-soft:   #1f1f1f;  /* softer inner dividers               */
 
         --text:          #a8a8a8;  /* body text                           */
@@ -3555,6 +3556,27 @@ EOT;
 
     #notifications-footer a {
         color: var(--blue);
+    }
+
+    /* ---- Outlines -----------------------------------------------------
+       Containers carry TWO rings: the existing #282828 hairline plus an
+       outer ring in the texture's dark stripe colour, drawn with a
+       zero-blur box-shadow so it sits just outside the border. */
+    .pun .box {
+        box-shadow: 0 0 0 1px var(--outline-dark),
+                    0 1px 4px rgba(0, 0, 0, 0.45);
+    }
+
+    /* Black line directly under the RGB bar. The bar is body::before
+       (z-index 1000), so its shadow paints over the navbar beneath it. */
+    body::before {
+        box-shadow: 0 1px 0 0 #000;
+    }
+
+    /* Black line under the sub-header (the "Premium ..." bar). */
+    #brdheader {
+        border-bottom: 1px solid #000;
+        box-shadow: 0 1px 0 0 #000;
     }
 
     /* Injection point for the "Top-left logo" dropdown above. Inert
