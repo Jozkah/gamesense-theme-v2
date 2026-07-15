@@ -1,7 +1,7 @@
 /* ==UserStyle==
 @name           gamesense theme v2
 @namespace      github.com/Jozkah/gamesense-theme-v2
-@version        0.16.2
+@version        0.17.0
 @description    gamesense forum theme v2 — pixel-matched dark restyle of the gamesense.pub forum
 @author         Jozkah
 @homepageURL    https://github.com/Jozkah/gamesense-theme-v2
@@ -51,6 +51,10 @@ EOT;
         --shout-bg:      #171717;  /* shoutbox body                       */
 
         --border:        #282828;  /* default hairline dividers           */
+        --outline-inner: #303030;  /* 1st outline: container edge. The
+                                      shoutbox scrollbar track reuses this
+                                      so the bar melts into the outline
+                                      instead of stacking a 2nd dark band. */
         --outline-dark:  #0b0b0b;  /* 2nd outline: texture's dark stripe  */
         --border-soft:   #1f1f1f;  /* softer inner dividers               */
 
@@ -1427,7 +1431,7 @@ EOT;
     }
 
     .pun .box {
-        border-color: #303030;
+        border-color: var(--outline-inner);
     }
 
     .pun .blocktable .box {
@@ -1919,21 +1923,28 @@ EOT;
         overflow-x: hidden;
         overflow-y: scroll;
         word-wrap: break-word;
+        /* Pull 1px right so the bar sits ON the box's border-right rather
+           than beside it. Without this the track and the outline are two
+           adjacent bands and read as one fat edge. Rows are unaffected —
+           they stop where the scrollbar starts. */
+        margin-right: -1px;
     }
 
+    /* The track IS the outline where the bar runs, so the 1px edge stays
+       continuous down the container and the thumb floats inside it. */
     #shout div::-webkit-scrollbar-track {
         -webkit-box-shadow: none;
-        background-color: #2b2b2b;
+        background-color: var(--outline-inner);
     }
 
     #shout div::-webkit-scrollbar {
         width: 8px;
-        background-color: #2b2b2b;
+        background-color: var(--outline-inner);
     }
 
     #shout div::-webkit-scrollbar-thumb {
         background-color: #565656;
-        border: 1px solid #2b2b2b;
+        border: 1px solid var(--outline-inner);
         background-clip: padding-box;
     }
 
