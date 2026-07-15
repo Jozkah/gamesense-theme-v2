@@ -1,7 +1,7 @@
 /* ==UserStyle==
 @name           gamesense theme v2
 @namespace      github.com/Jozkah/gamesense-theme-v2
-@version        0.17.1
+@version        0.18.0
 @description    gamesense forum theme v2 — pixel-matched dark restyle of the gamesense.pub forum
 @author         Jozkah
 @homepageURL    https://github.com/Jozkah/gamesense-theme-v2
@@ -49,6 +49,11 @@ EOT;
         --header-bg:     #191919;  /* navbar (lightest layer)             */
         --panel-title:   #101010;  /* category title bars                 */
         --shout-bg:      #171717;  /* shoutbox body                       */
+        --popover-bg:    #131313;  /* floating layers (notifications tray,
+                                      emoji picker). Deliberately darker
+                                      than --surface/--shout-bg so a popover
+                                      separates from the panel it covers
+                                      instead of blending into it.        */
 
         --border:        #282828;  /* default hairline dividers           */
         --outline-inner: #303030;  /* 1st outline: container edge. The
@@ -2740,8 +2745,12 @@ EOT;
         max-height: 190px;
         overflow: hidden auto;
         grid-template-columns: repeat(auto-fill, 32px);
-        background: #1a1a1a;
-        border: 1px solid var(--border);
+        /* Same floating language as the notifications tray: darker than the
+           shoutbox it covers, so it reads as a layer above rather than more
+           panel. It used --surface-alt, i.e. the tone every other panel
+           already wears, which is why it disappeared into the background. */
+        background: var(--popover-bg);
+        border: 1px solid var(--outline-inner);
         box-shadow: 0 4px 14px rgba(0, 0, 0, 0.7);
         z-index: 1001;
     }
@@ -2765,13 +2774,25 @@ EOT;
         background: #242424;
     }
 
+    /* Match the shoutbox bar: track is the outline colour, thumb floats in
+       it. Was a #1a1a1a track + #3a3a3a thumb, a third scrollbar look. */
     #gs-emoji-panel::-webkit-scrollbar {
         width: 8px;
-        background: #1a1a1a;
+        background: var(--outline-inner);
+    }
+
+    #gs-emoji-panel::-webkit-scrollbar-track {
+        background: var(--outline-inner);
     }
 
     #gs-emoji-panel::-webkit-scrollbar-thumb {
-        background: #3a3a3a;
+        background: #565656;
+        border: 1px solid var(--outline-inner);
+        background-clip: padding-box;
+    }
+
+    #gs-emoji-panel::-webkit-scrollbar-thumb:hover {
+        background: #666;
     }
 
     /* ==================================================================
@@ -3502,8 +3523,8 @@ EOT;
         width: max-content;
         max-width: 240px;
         padding: 0;
-        background: #131313;
-        border: 1px solid #303030;
+        background: var(--popover-bg);
+        border: 1px solid var(--outline-inner);
         box-shadow: 0 4px 14px rgba(0, 0, 0, 0.7);
         overflow: visible;
         z-index: 1001;
