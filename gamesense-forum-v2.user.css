@@ -1,7 +1,7 @@
 /* ==UserStyle==
 @name           gamesense theme v2
 @namespace      github.com/Jozkah/gamesense-theme-v2
-@version        0.17.0
+@version        0.17.1
 @description    gamesense forum theme v2 — pixel-matched dark restyle of the gamesense.pub forum
 @author         Jozkah
 @homepageURL    https://github.com/Jozkah/gamesense-theme-v2
@@ -3657,11 +3657,15 @@ EOT;
     /* ---- Form / info blocks (PM "Info", payments, profile) -----------
        The section legend sits 8px INTO its box, so anything starting at the
        box's top edge gets overlapped - that's why "Info" landed on top of
-       "Attention!!!". Reserve the space inside the form wrapper. */
+       "Attention!!!". Reserve the space inside the form wrapper.
+       The 12px sides match .pun .block .inbox, so an info box lines up with
+       the .inbox-based boxes beside it ("Options" on the PM page). Without
+       them the fieldset below (padding: 0, to kill its double title bar)
+       leaves the text flush against the border. */
     #brdmain .box > .inform,
     #brdmain .box > .fakeform,
     #brdmain .box > form {
-        padding-top: 12px;
+        padding: 12px 12px 0;
     }
 
     /* Info blocks nest a bordered fieldset inside the box, so its legend
