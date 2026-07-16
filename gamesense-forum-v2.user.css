@@ -1,7 +1,7 @@
 /* ==UserStyle==
 @name           gamesense theme v2
 @namespace      github.com/Jozkah/gamesense-theme-v2
-@version        0.18.0
+@version        0.19.0
 @description    gamesense forum theme v2 — pixel-matched dark restyle of the gamesense.pub forum
 @author         Jozkah
 @homepageURL    https://github.com/Jozkah/gamesense-theme-v2
@@ -3734,11 +3734,41 @@ EOT;
     }
 
     /* ---- Payments page ----------------------------------------------- */
-    #payment-container fieldset,
-    #confirmation .status {
+    #payment-container fieldset {
         background: var(--surface-alt);
         border: 1px solid var(--border);
         border-radius: 0;
+    }
+
+    /* Extend-subscription result (Success! / Payment failed / WeChat Pay).
+       The native site nests a second bordered card inside the box
+       (min-height: 250px; max-width: 75%; its own surface + border). On the
+       theme the outer .box IS the card, so that second card rendered as a
+       giant near-invisible box-in-a-box with the checkmark and text floating
+       in a tall empty void — the "broken" look. Make the inner .status
+       seamless: no second surface, no forced height, no 75% inset — just
+       padded content sitting directly in the themed box. Covers all three
+       states (.success/.error/.wechat) since they share .status. */
+    #confirmation {
+        width: 100%;
+        margin: 0;
+    }
+
+    #confirmation .status {
+        background: transparent;
+        border: none;
+        border-radius: 0;
+        min-height: 0;
+        max-width: 100%;
+        margin: 0;
+        padding: 18px 12px;
+    }
+
+    /* Native h1 is 42px/300 — fine as a moment, but trim it a touch so it
+       sits with the theme's compact type instead of ballooning the panel. */
+    #confirmation h1 {
+        font-size: 32px;
+        margin-bottom: 8px;
     }
 
     #payment-container .field {
